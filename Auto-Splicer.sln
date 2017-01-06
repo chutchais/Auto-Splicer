@@ -5,8 +5,6 @@ VisualStudioVersion = 12.0.30723.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Auto-Splicer", "Auto-Splicer\Auto-Splicer.vbproj", "{B156BBE9-84DF-4CE7-B478-B333224902FE}"
 EndProject
-Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "ClassFIT", "ClassFIT\ClassFIT.vbproj", "{F9E11112-6EC3-4B9C-BFF9-B2E889078892}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -17,10 +15,6 @@ Global
 		{B156BBE9-84DF-4CE7-B478-B333224902FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B156BBE9-84DF-4CE7-B478-B333224902FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B156BBE9-84DF-4CE7-B478-B333224902FE}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F9E11112-6EC3-4B9C-BFF9-B2E889078892}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F9E11112-6EC3-4B9C-BFF9-B2E889078892}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F9E11112-6EC3-4B9C-BFF9-B2E889078892}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F9E11112-6EC3-4B9C-BFF9-B2E889078892}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

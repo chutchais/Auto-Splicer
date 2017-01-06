@@ -54,15 +54,26 @@ Partial Class Form1
         Me.txtEn = New System.Windows.Forms.TextBox()
         Me.Label6 = New System.Windows.Forms.Label()
         Me.btnSaveData = New System.Windows.Forms.Button()
+        Me.GroupBox3 = New System.Windows.Forms.GroupBox()
+        Me.txtCleaver38 = New System.Windows.Forms.TextBox()
+        Me.txtCleaver32 = New System.Windows.Forms.TextBox()
+        Me.txtSplicerName = New System.Windows.Forms.TextBox()
+        Me.Label10 = New System.Windows.Forms.Label()
+        Me.Label9 = New System.Windows.Forms.Label()
+        Me.Label8 = New System.Windows.Forms.Label()
+        Me.GroupBox4 = New System.Windows.Forms.GroupBox()
+        Me.txtRemark = New System.Windows.Forms.TextBox()
         Me.StatusStrip1.SuspendLayout()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
+        Me.GroupBox3.SuspendLayout()
+        Me.GroupBox4.SuspendLayout()
         Me.SuspendLayout()
         '
         'Button1
         '
-        Me.Button1.Location = New System.Drawing.Point(208, 745)
+        Me.Button1.Location = New System.Drawing.Point(183, 745)
         Me.Button1.Name = "Button1"
         Me.Button1.Size = New System.Drawing.Size(155, 34)
         Me.Button1.TabIndex = 2
@@ -72,7 +83,7 @@ Partial Class Form1
         '
         'Button2
         '
-        Me.Button2.Location = New System.Drawing.Point(47, 745)
+        Me.Button2.Location = New System.Drawing.Point(22, 745)
         Me.Button2.Name = "Button2"
         Me.Button2.Size = New System.Drawing.Size(155, 34)
         Me.Button2.TabIndex = 3
@@ -82,7 +93,7 @@ Partial Class Form1
         '
         'Button3
         '
-        Me.Button3.Location = New System.Drawing.Point(369, 745)
+        Me.Button3.Location = New System.Drawing.Point(343, 745)
         Me.Button3.Name = "Button3"
         Me.Button3.Size = New System.Drawing.Size(155, 34)
         Me.Button3.TabIndex = 4
@@ -96,7 +107,7 @@ Partial Class Form1
         Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tssSplicer, Me.tssMessage})
         Me.StatusStrip1.Location = New System.Drawing.Point(0, 785)
         Me.StatusStrip1.Name = "StatusStrip1"
-        Me.StatusStrip1.Size = New System.Drawing.Size(1198, 25)
+        Me.StatusStrip1.Size = New System.Drawing.Size(1180, 25)
         Me.StatusStrip1.TabIndex = 6
         Me.StatusStrip1.Text = "StatusStrip1"
         '
@@ -120,27 +131,28 @@ Partial Class Form1
         Me.DataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells
         Me.DataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.DataGridView1.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
-        Me.DataGridView1.Location = New System.Drawing.Point(47, 188)
+        Me.DataGridView1.Location = New System.Drawing.Point(298, 191)
         Me.DataGridView1.Name = "DataGridView1"
         Me.DataGridView1.RowTemplate.Height = 24
-        Me.DataGridView1.Size = New System.Drawing.Size(1123, 551)
+        Me.DataGridView1.Size = New System.Drawing.Size(872, 548)
         Me.DataGridView1.TabIndex = 8
+        Me.DataGridView1.TabStop = False
         '
         'Label2
         '
         Me.Label2.AutoSize = True
         Me.Label2.Font = New System.Drawing.Font("Microsoft Sans Serif", 13.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label2.Location = New System.Drawing.Point(42, 156)
+        Me.Label2.Location = New System.Drawing.Point(12, 153)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(172, 29)
+        Me.Label2.Size = New System.Drawing.Size(90, 29)
         Me.Label2.TabIndex = 7
-        Me.Label2.Text = "Splicer Name :"
+        Me.Label2.Text = "Name :"
         '
         'lbSplicerName
         '
         Me.lbSplicerName.AutoSize = True
         Me.lbSplicerName.Font = New System.Drawing.Font("Microsoft Sans Serif", 13.8!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lbSplicerName.Location = New System.Drawing.Point(220, 156)
+        Me.lbSplicerName.Location = New System.Drawing.Point(108, 153)
         Me.lbSplicerName.Name = "lbSplicerName"
         Me.lbSplicerName.Size = New System.Drawing.Size(31, 29)
         Me.lbSplicerName.TabIndex = 8
@@ -172,14 +184,14 @@ Partial Class Form1
         Me.txtLossValue.Location = New System.Drawing.Point(854, 144)
         Me.txtLossValue.Name = "txtLossValue"
         Me.txtLossValue.Size = New System.Drawing.Size(201, 38)
-        Me.txtLossValue.TabIndex = 7
+        Me.txtLossValue.TabIndex = 9
         '
         'btnSave
         '
         Me.btnSave.Location = New System.Drawing.Point(1061, 144)
         Me.btnSave.Name = "btnSave"
         Me.btnSave.Size = New System.Drawing.Size(109, 38)
-        Me.btnSave.TabIndex = 12
+        Me.btnSave.TabIndex = 10
         Me.btnSave.Text = "Save"
         Me.btnSave.UseVisualStyleBackColor = True
         '
@@ -198,6 +210,7 @@ Partial Class Form1
         Me.btnClear.Name = "btnClear"
         Me.btnClear.Size = New System.Drawing.Size(155, 34)
         Me.btnClear.TabIndex = 10
+        Me.btnClear.TabStop = False
         Me.btnClear.Text = "Clear Data"
         Me.btnClear.UseVisualStyleBackColor = True
         '
@@ -213,7 +226,7 @@ Partial Class Form1
         Me.GroupBox1.Controls.Add(Me.btnStart)
         Me.GroupBox1.Controls.Add(Me.txtSN)
         Me.GroupBox1.Controls.Add(Me.Label1)
-        Me.GroupBox1.Location = New System.Drawing.Point(51, 9)
+        Me.GroupBox1.Location = New System.Drawing.Point(12, 8)
         Me.GroupBox1.Name = "GroupBox1"
         Me.GroupBox1.Size = New System.Drawing.Size(682, 129)
         Me.GroupBox1.TabIndex = 15
@@ -326,9 +339,9 @@ Partial Class Form1
         Me.GroupBox2.Controls.Add(Me.btnLogIn)
         Me.GroupBox2.Controls.Add(Me.txtEn)
         Me.GroupBox2.Controls.Add(Me.Label6)
-        Me.GroupBox2.Location = New System.Drawing.Point(756, 9)
+        Me.GroupBox2.Location = New System.Drawing.Point(700, 8)
         Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Size = New System.Drawing.Size(414, 128)
+        Me.GroupBox2.Size = New System.Drawing.Size(470, 129)
         Me.GroupBox2.TabIndex = 16
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Operator Info"
@@ -375,14 +388,109 @@ Partial Class Form1
         Me.btnSaveData.Name = "btnSaveData"
         Me.btnSaveData.Size = New System.Drawing.Size(155, 34)
         Me.btnSaveData.TabIndex = 9
+        Me.btnSaveData.TabStop = False
         Me.btnSaveData.Text = "Save Data"
         Me.btnSaveData.UseVisualStyleBackColor = True
+        '
+        'GroupBox3
+        '
+        Me.GroupBox3.Controls.Add(Me.txtCleaver38)
+        Me.GroupBox3.Controls.Add(Me.txtCleaver32)
+        Me.GroupBox3.Controls.Add(Me.txtSplicerName)
+        Me.GroupBox3.Controls.Add(Me.Label10)
+        Me.GroupBox3.Controls.Add(Me.Label9)
+        Me.GroupBox3.Controls.Add(Me.Label8)
+        Me.GroupBox3.Location = New System.Drawing.Point(12, 191)
+        Me.GroupBox3.Name = "GroupBox3"
+        Me.GroupBox3.Size = New System.Drawing.Size(280, 153)
+        Me.GroupBox3.TabIndex = 17
+        Me.GroupBox3.TabStop = False
+        Me.GroupBox3.Text = "Splicer Information"
+        '
+        'txtCleaver38
+        '
+        Me.txtCleaver38.Font = New System.Drawing.Font("Microsoft Sans Serif", 16.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtCleaver38.Location = New System.Drawing.Point(160, 108)
+        Me.txtCleaver38.Name = "txtCleaver38"
+        Me.txtCleaver38.Size = New System.Drawing.Size(105, 38)
+        Me.txtCleaver38.TabIndex = 8
+        '
+        'txtCleaver32
+        '
+        Me.txtCleaver32.Font = New System.Drawing.Font("Microsoft Sans Serif", 16.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtCleaver32.Location = New System.Drawing.Point(160, 65)
+        Me.txtCleaver32.Name = "txtCleaver32"
+        Me.txtCleaver32.Size = New System.Drawing.Size(105, 38)
+        Me.txtCleaver32.TabIndex = 7
+        '
+        'txtSplicerName
+        '
+        Me.txtSplicerName.Font = New System.Drawing.Font("Microsoft Sans Serif", 16.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtSplicerName.Location = New System.Drawing.Point(160, 21)
+        Me.txtSplicerName.Name = "txtSplicerName"
+        Me.txtSplicerName.Size = New System.Drawing.Size(105, 38)
+        Me.txtSplicerName.TabIndex = 6
+        '
+        'Label10
+        '
+        Me.Label10.AutoSize = True
+        Me.Label10.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label10.ForeColor = System.Drawing.SystemColors.ControlText
+        Me.Label10.Location = New System.Drawing.Point(6, 121)
+        Me.Label10.Name = "Label10"
+        Me.Label10.Size = New System.Drawing.Size(127, 20)
+        Me.Label10.TabIndex = 19
+        Me.Label10.Text = "Cleaver CT-38 :"
+        '
+        'Label9
+        '
+        Me.Label9.AutoSize = True
+        Me.Label9.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label9.ForeColor = System.Drawing.SystemColors.ControlText
+        Me.Label9.Location = New System.Drawing.Point(6, 78)
+        Me.Label9.Name = "Label9"
+        Me.Label9.Size = New System.Drawing.Size(127, 20)
+        Me.Label9.TabIndex = 18
+        Me.Label9.Text = "Cleaver CT-32 :"
+        '
+        'Label8
+        '
+        Me.Label8.AutoSize = True
+        Me.Label8.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label8.ForeColor = System.Drawing.SystemColors.ControlText
+        Me.Label8.Location = New System.Drawing.Point(6, 33)
+        Me.Label8.Name = "Label8"
+        Me.Label8.Size = New System.Drawing.Size(135, 20)
+        Me.Label8.TabIndex = 17
+        Me.Label8.Text = "Splicer Number :"
+        '
+        'GroupBox4
+        '
+        Me.GroupBox4.Controls.Add(Me.txtRemark)
+        Me.GroupBox4.Location = New System.Drawing.Point(13, 351)
+        Me.GroupBox4.Name = "GroupBox4"
+        Me.GroupBox4.Size = New System.Drawing.Size(278, 162)
+        Me.GroupBox4.TabIndex = 18
+        Me.GroupBox4.TabStop = False
+        Me.GroupBox4.Text = "Remark"
+        '
+        'txtRemark
+        '
+        Me.txtRemark.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.2!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtRemark.Location = New System.Drawing.Point(9, 21)
+        Me.txtRemark.Multiline = True
+        Me.txtRemark.Name = "txtRemark"
+        Me.txtRemark.Size = New System.Drawing.Size(263, 125)
+        Me.txtRemark.TabIndex = 7
+        Me.txtRemark.TabStop = False
         '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1198, 810)
+        Me.ClientSize = New System.Drawing.Size(1180, 810)
+        Me.Controls.Add(Me.GroupBox4)
+        Me.Controls.Add(Me.GroupBox3)
         Me.Controls.Add(Me.btnSaveData)
         Me.Controls.Add(Me.GroupBox2)
         Me.Controls.Add(Me.GroupBox1)
@@ -400,6 +508,7 @@ Partial Class Form1
         Me.Controls.Add(Me.Button2)
         Me.Controls.Add(Me.Button1)
         Me.Name = "Form1"
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Auto Splicer - ACACIA"
         Me.StatusStrip1.ResumeLayout(False)
         Me.StatusStrip1.PerformLayout()
@@ -408,6 +517,10 @@ Partial Class Form1
         Me.GroupBox1.PerformLayout()
         Me.GroupBox2.ResumeLayout(False)
         Me.GroupBox2.PerformLayout()
+        Me.GroupBox3.ResumeLayout(False)
+        Me.GroupBox3.PerformLayout()
+        Me.GroupBox4.ResumeLayout(False)
+        Me.GroupBox4.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -444,5 +557,14 @@ Partial Class Form1
     Friend WithEvents cbOperation As System.Windows.Forms.ComboBox
     Friend WithEvents Label7 As System.Windows.Forms.Label
     Friend WithEvents btnSaveData As System.Windows.Forms.Button
+    Friend WithEvents GroupBox3 As System.Windows.Forms.GroupBox
+    Friend WithEvents txtCleaver38 As System.Windows.Forms.TextBox
+    Friend WithEvents txtCleaver32 As System.Windows.Forms.TextBox
+    Friend WithEvents txtSplicerName As System.Windows.Forms.TextBox
+    Friend WithEvents Label10 As System.Windows.Forms.Label
+    Friend WithEvents Label9 As System.Windows.Forms.Label
+    Friend WithEvents Label8 As System.Windows.Forms.Label
+    Friend WithEvents GroupBox4 As System.Windows.Forms.GroupBox
+    Friend WithEvents txtRemark As System.Windows.Forms.TextBox
 
 End Class

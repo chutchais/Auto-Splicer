@@ -4,6 +4,7 @@ Imports System.IO
 
 Public Class Form1
     Private WithEvents UsbFsm As UsbFsm100ServerClass
+    Private splicerTable As DataTable
     Private dataTable As DataTable
     Private dataSet As DataSet
 
@@ -113,6 +114,15 @@ Public Class Form1
         btnSaveData.Enabled = False
         btnClear.Enabled = False
         btnUpload.Enabled = False
+
+        txtSplicerName.Enabled = False
+        txtCleaver32.Enabled = False
+        txtCleaver38.Enabled = False
+        txtRemark.Enabled = False
+        txtSplicerName.Text = ""
+        txtCleaver32.Text = ""
+        txtCleaver38.Text = ""
+        txtRemark.Text = ""
 
     End Sub
 
@@ -275,7 +285,7 @@ Public Class Form1
 
     Private Sub btnUpload_Click(sender As Object, e As EventArgs) Handles btnUpload.Click
 
-        
+
         If MsgBox("Are you sure to upload data to FIT?", vbQuestion + vbYesNo + vbDefaultButton2, _
                   "Upload data") = vbYes Then
             'Upload Data.
@@ -299,12 +309,19 @@ Public Class Form1
             Dim vHandShake As String
             Dim vCheckIn As String = ""
             Dim vCheckOut As String = ""
-            Dim vParamList As String = "FBN Serial No|EN"
+            Dim vParamList As String = "FBN Serial No|CFP P/N|EN"
             Dim vDataList As String = vSn & "|" & vEn
             Dim vResult As String = "Passed"
             Dim vRemark As String = ""
 
             Dim row As DataRow
+            'Splicer Info
+            splicerTable = GetSplicerTable()
+            For Each row In splicerTable.Rows
+                vParamList = vParamList & "|" & row(0).ToString
+                vDataList = vDataList & "|" & row(1).ToString
+            Next
+            'Measurement data
             For Each row In dataTable.Rows
                 vParamList = vParamList & "|" & row(1).ToString
                 vDataList = vDataList & "|" & row(5).ToString
@@ -372,6 +389,8 @@ Public Class Form1
         Dim vOperation As String = cbOperation.SelectedValue.ToString
         Dim vSn As String = txtSN.Text
         Dim vHandShake As String
+
+        'vHandShake = objFITSDLL.fn_Query(vModel, vOperation, "2.9", vSn, "model")
         vHandShake = objFITSDLL.fn_Handshake(vModel, vOperation, "2.9", vSn)
 
         lblCurrentStatus.Text = vHandShake
@@ -388,6 +407,17 @@ Public Class Form1
                               "Found recently saved file") = vbYes Then
                         dataSet.Tables(vSn).TableName = "configuration"
                         dataTable = dataSet.Tables("configuration")
+                        'Datatable of Splicer info
+                        Dim vSplicerTable As DataTable = dataSet.Tables("splicer")
+                        With vSplicerTable
+                            If .Rows.Count > 0 Then
+                                txtSplicerName.Text = .Rows(0).Item(1).ToString
+                                txtCleaver32.Text = .Rows(1).Item(1).ToString
+                                txtCleaver38.Text = .Rows(2).Item(1).ToString
+                                txtRemark.Text = .Rows(3).Item(1).ToString
+                            End If
+                        End With
+                        '-------------------------
                         If isListCompleted() Then
                             btnUpload.Enabled = True
                         Else
@@ -417,6 +447,11 @@ NewUnit:
 
                 DataGridView1.DataSource = dataTable
 
+            '--Splicer info
+            txtSplicerName.Enabled = True
+            txtCleaver32.Enabled = True
+            txtCleaver38.Enabled = True
+            '-----
 
                 btnStart.Enabled = False
                 btnNew.Enabled = True
@@ -425,8 +460,13 @@ NewUnit:
             btnSaveData.Enabled = True
             btnClear.Enabled = True
 
-                txtLossValue.Enabled = True
-                txtLossValue.Select()
+            'txtLossValue.Enabled = True
+            'txtLossValue.Select()
+            txtCleaver32.Enabled = True
+            txtCleaver38.Enabled = True
+            txtSplicerName.Enabled = True
+            txtSplicerName.Select()
+            txtRemark.Enabled = True
             Else
                 txtSN.SelectAll()
             End If
@@ -507,6 +547,8 @@ NewUnit:
 
     Private Sub btnSaveData_Click(sender As Object, e As EventArgs) Handles btnSaveData.Click
         ' Dim dataSet As DataSet = JsonConvert.DeserializeObject(Of DataSet)(vJson)
+        dataSet.Tables.Add(GetSplicerTable)
+
         dataSet.Tables("configuration").TableName = txtSN.Text
         Dim vJsonStr As String = JsonConvert.SerializeObject(dataSet, Formatting.Indented)
         File.WriteAllText(vRecentSaved, vJsonStr)
@@ -528,4 +570,64 @@ NewUnit:
     Private Sub txtEn_TextChanged(sender As Object, e As EventArgs) Handles txtEn.TextChanged
 
     End Sub
+
+    Private Sub txtSplicerName_KeyPress(sender As Object, e As KeyPressEventArgs) Handles txtSplicerName.KeyPress
+        If e.KeyChar = ChrW(Keys.Enter) Then
+            SendKeys.Send("{TAB}")
+        End If
+    End Sub
+
+    Private Sub txtSplicerName_TextChanged(sender As Object, e As EventArgs) Handles txtSplicerName.TextChanged
+        IsSplicerInfoCompleted()
+    End Sub
+
+    Function IsSplicerInfoCompleted() As Boolean
+        If txtSplicerName.Text <> "" And _
+            txtCleaver32.Text <> "" And _
+            txtCleaver38.Text <> "" Then
+            txtLossValue.Enabled = True
+            'txtLossValue.Select()
+            Return True
+        Else
+            txtLossValue.Enabled = False
+            Return False
+        End If
+    End Function
+
+    Private Sub txtCleaver32_KeyPress(sender As Object, e As KeyPressEventArgs) Handles txtCleaver32.KeyPress
+        If e.KeyChar = ChrW(Keys.Enter) Then
+            SendKeys.Send("{TAB}")
+        End If
+    End Sub
+
+    Private Sub txtCleaver32_TextChanged(sender As Object, e As EventArgs) Handles txtCleaver32.TextChanged
+        IsSplicerInfoCompleted()
+    End Sub
+
+    Private Sub txtCleaver38_KeyPress(sender As Object, e As KeyPressEventArgs) Handles txtCleaver38.KeyPress
+        If e.KeyChar = ChrW(Keys.Enter) Then
+            SendKeys.Send("{TAB}")
+        End If
+    End Sub
+
+    Private Sub txtCleaver38_TextChanged(sender As Object, e As EventArgs) Handles txtCleaver38.TextChanged
+        IsSplicerInfoCompleted()
+    End Sub
+
+    Function GetSplicerTable() As DataTable
+        ' Create new DataTable instance.
+        Dim table As New DataTable
+
+        table.TableName = "splicer"
+        ' Create four typed columns in the DataTable.
+        table.Columns.Add("name", GetType(String))
+        table.Columns.Add("value", GetType(String))
+
+        ' Add five rows with those columns filled in the DataTable.
+        table.Rows.Add("Splicer Number", txtSplicerName.Text)
+        table.Rows.Add("Cleaver CT-32 Number", txtCleaver32.Text)
+        table.Rows.Add("Cleaver CT-38 Number", txtCleaver38.Text)
+        table.Rows.Add("Remark", txtRemark.Text.Replace("|", " "))
+        Return table
+    End Function
 End Class
