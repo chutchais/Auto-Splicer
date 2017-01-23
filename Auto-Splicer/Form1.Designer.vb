@@ -63,6 +63,7 @@ Partial Class Form1
         Me.Label8 = New System.Windows.Forms.Label()
         Me.GroupBox4 = New System.Windows.Forms.GroupBox()
         Me.txtRemark = New System.Windows.Forms.TextBox()
+        Me.btnSetting = New System.Windows.Forms.Button()
         Me.StatusStrip1.SuspendLayout()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox1.SuspendLayout()
@@ -73,7 +74,7 @@ Partial Class Form1
         '
         'Button1
         '
-        Me.Button1.Location = New System.Drawing.Point(183, 745)
+        Me.Button1.Location = New System.Drawing.Point(333, 745)
         Me.Button1.Name = "Button1"
         Me.Button1.Size = New System.Drawing.Size(155, 34)
         Me.Button1.TabIndex = 2
@@ -83,7 +84,7 @@ Partial Class Form1
         '
         'Button2
         '
-        Me.Button2.Location = New System.Drawing.Point(22, 745)
+        Me.Button2.Location = New System.Drawing.Point(172, 745)
         Me.Button2.Name = "Button2"
         Me.Button2.Size = New System.Drawing.Size(155, 34)
         Me.Button2.TabIndex = 3
@@ -93,7 +94,7 @@ Partial Class Form1
         '
         'Button3
         '
-        Me.Button3.Location = New System.Drawing.Point(343, 745)
+        Me.Button3.Location = New System.Drawing.Point(493, 745)
         Me.Button3.Name = "Button3"
         Me.Button3.Size = New System.Drawing.Size(155, 34)
         Me.Button3.TabIndex = 4
@@ -484,11 +485,22 @@ Partial Class Form1
         Me.txtRemark.TabIndex = 7
         Me.txtRemark.TabStop = False
         '
+        'btnSetting
+        '
+        Me.btnSetting.Location = New System.Drawing.Point(12, 745)
+        Me.btnSetting.Name = "btnSetting"
+        Me.btnSetting.Size = New System.Drawing.Size(155, 34)
+        Me.btnSetting.TabIndex = 19
+        Me.btnSetting.TabStop = False
+        Me.btnSetting.Text = "SETTING"
+        Me.btnSetting.UseVisualStyleBackColor = True
+        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1180, 810)
+        Me.Controls.Add(Me.btnSetting)
         Me.Controls.Add(Me.GroupBox4)
         Me.Controls.Add(Me.GroupBox3)
         Me.Controls.Add(Me.btnSaveData)
@@ -566,5 +578,6 @@ Partial Class Form1
     Friend WithEvents Label8 As System.Windows.Forms.Label
     Friend WithEvents GroupBox4 As System.Windows.Forms.GroupBox
     Friend WithEvents txtRemark As System.Windows.Forms.TextBox
+    Friend WithEvents btnSetting As System.Windows.Forms.Button
 
 End Class

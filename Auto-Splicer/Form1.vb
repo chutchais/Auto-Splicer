@@ -9,7 +9,7 @@ Public Class Form1
     Private dataSet As DataSet
 
     Private vRecentSaved As String = Application.StartupPath & "\recently_saved.json"
-    Private vConfPath As String = "d:\" 'Application.StartupPath & "\"
+    Public vConfPath As String = "d:\" 'Application.StartupPath & "\"
 
     Dim objFITSDLL As FITSDLL.clsDB
     ' Private objFITSDLL As New FITSDLL.clsDB
@@ -451,6 +451,7 @@ NewUnit:
             txtSplicerName.Enabled = True
             txtCleaver32.Enabled = True
             txtCleaver38.Enabled = True
+            txtRemark.Text = ""
             '-----
 
                 btnStart.Enabled = False
@@ -630,4 +631,11 @@ NewUnit:
         table.Rows.Add("Remark", txtRemark.Text.Replace("|", " "))
         Return table
     End Function
+
+    Private Sub btnSetting_Click(sender As Object, e As EventArgs) Handles btnSetting.Click
+        Dim box = New frmSetting
+        box.Show()
+    End Sub
+
+  
 End Class
