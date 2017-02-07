@@ -181,6 +181,7 @@ Public Class Form1
 
     Private Sub TextBox1_GotFocus(sender As Object, e As EventArgs) Handles txtLossValue.GotFocus
 
+
     End Sub
 
     Private Sub TextBox1_KeyPress(sender As Object, e As KeyPressEventArgs) Handles txtLossValue.KeyPress
@@ -238,6 +239,7 @@ Public Class Form1
             Dim nextRow As DataGridViewRow = DataGridView1.Rows(DataGridView1.CurrentRow.Index + 1)
             DataGridView1.CurrentCell = nextRow.Cells(0)
             nextRow.Selected = True
+            txtLossValue.Select()
         Else
             DataGridView1.ClearSelection()
             btnUpload.Select()
@@ -402,11 +404,11 @@ Public Class Form1
             If File.Exists(vRecentSaved) Then
                 vJson = File.ReadAllText(vRecentSaved)
                 dataSet = JsonConvert.DeserializeObject(Of DataSet)(vJson)
-                If dataSet.Tables(0).TableName = vSn Then
+                If dataSet.Tables.Contains(vSn) Then
                     If MsgBox("Found recently saved data, Do you need to re-load?", MsgBoxStyle.Question + vbYesNo + vbDefaultButton1, _
                               "Found recently saved file") = vbYes Then
-                        dataSet.Tables(vSn).TableName = "configuration"
-                        dataTable = dataSet.Tables("configuration")
+                        dataSet.Tables(vSn).TableName = vModel
+                        dataTable = dataSet.Tables(vModel)
                         'Datatable of Splicer info
                         Dim vSplicerTable As DataTable = dataSet.Tables("splicer")
                         With vSplicerTable
@@ -435,9 +437,9 @@ Public Class Form1
                 Else
                     'New Start
 NewUnit:
-                vJson = File.ReadAllText(vConfPath & vModel & ".json")
+                vJson = File.ReadAllText(vConfPath & "splicer.json")
                     dataSet = JsonConvert.DeserializeObject(Of DataSet)(vJson)
-                    dataTable = dataSet.Tables("configuration")
+                dataTable = dataSet.Tables(vModel)
                 dataTable.Columns.Add("Splicing LOSS", GetType(Double))
                 btnUpload.Enabled = False
                 btnSet.Text = "SET"
@@ -451,7 +453,7 @@ NewUnit:
             txtSplicerName.Enabled = True
             txtCleaver32.Enabled = True
             txtCleaver38.Enabled = True
-            txtRemark.Text = ""
+            txtRemark.Enabled = True
             '-----
 
                 btnStart.Enabled = False
@@ -544,14 +546,36 @@ NewUnit:
         DataGridView1.DataSource = Nothing
         lbSplicerName.Text = "..."
         lblCurrentStatus.Text = "..."
+        txtSplicerName.Text = ""
+        txtCleaver32.Text = ""
+        txtCleaver38.Text = ""
+        txtRemark.Text = ""
     End Sub
 
     Private Sub btnSaveData_Click(sender As Object, e As EventArgs) Handles btnSaveData.Click
         ' Dim dataSet As DataSet = JsonConvert.DeserializeObject(Of DataSet)(vJson)
-        dataSet.Tables.Add(GetSplicerTable)
+        Dim vNewDataSet As New DataSet
+        Dim vNewTable As New DataTable
+        Dim vModel As String = cbModel.SelectedValue
+        With dataSet.Tables
+            'If .Contains("splicer") Then
+            '    dataSet.Tables.Remove("splicer")
+            'End If
+            vNewDataSet.Tables.Add(GetSplicerTable)
+            vNewTable = dataSet.Tables(vModel).Copy()
+            vNewDataSet.Tables.Add(vNewTable)
+            vNewDataSet.Tables(vModel).TableName = txtSN.Text
 
-        dataSet.Tables("configuration").TableName = txtSN.Text
-        Dim vJsonStr As String = JsonConvert.SerializeObject(dataSet, Formatting.Indented)
+
+            'Dim rows = vNewDataSet.Tables(txtSN.Text).Select("seq = 10")
+            'For Each r In rows
+            '    tmpCoupon = r("Splicing LOSS")
+            'Next
+
+
+        End With
+
+        Dim vJsonStr As String = JsonConvert.SerializeObject(vNewDataSet, Formatting.Indented)
         File.WriteAllText(vRecentSaved, vJsonStr)
         MsgBox("Save successfull!", MsgBoxStyle.Information, "Save data")
     End Sub
