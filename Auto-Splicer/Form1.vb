@@ -220,6 +220,14 @@ Public Class Form1
     End Sub
 
     Private Sub btnSave_Click(sender As Object, e As EventArgs) Handles btnSave.Click
+
+        If txtLossValue.Text = "" Then
+            MsgBox("Invalid LOSS value. (not allow blank value) " & vbCrLf & _
+                   "Try to read value and Save again", MsgBoxStyle.Critical, "Invalid LOSS value")
+            btnSet.Text = "Read Value"
+            Exit Sub
+        End If
+
         Dim vSplicColIndex As Integer = 5 'e.ColumnIndex 'dataGridView1.CurrentRow.Index
         Dim vValue As Double = Val(txtLossValue.Text)
         DataGridView1.Rows(DataGridView1.CurrentRow.Index).Cells(vSplicColIndex).Value = vValue
@@ -239,7 +247,8 @@ Public Class Form1
             Dim nextRow As DataGridViewRow = DataGridView1.Rows(DataGridView1.CurrentRow.Index + 1)
             DataGridView1.CurrentCell = nextRow.Cells(0)
             nextRow.Selected = True
-            txtLossValue.Select()
+            'txtLossValue.Select()
+            btnSet.Select()
         Else
             DataGridView1.ClearSelection()
             btnUpload.Select()
@@ -295,7 +304,9 @@ Public Class Form1
             Dim vModel As String = cbModel.SelectedValue
             Dim vOperation As String = cbOperation.SelectedValue
             Dim vEn As String = txtEn.Text
-            uploadToFit(vSn, vModel, vOperation, vEn)
+            If uploadToFit(vSn, vModel, vOperation, vEn) Then
+                MsgBox("Upload data successful", MsgBoxStyle.Information, "Success!!")
+            End If
             'intial data
             btnNew_Click(sender, e)
             If File.Exists(vRecentSaved) Then
@@ -312,9 +323,12 @@ Public Class Form1
             Dim vCheckIn As String = ""
             Dim vCheckOut As String = ""
             Dim vParamList As String = "FBN Serial No|CFP P/N|EN"
-            Dim vDataList As String = vSn & "|" & vEn
-            Dim vResult As String = "Passed"
+            Dim vDataList As String = ""
+            Dim vResult As String = "PASS"
             Dim vRemark As String = ""
+            Dim vCFPpn As String = ""
+            vCFPpn = objFITSDLL.fn_Query(vModel, vOperation, "2.9", vSn, "part_no", ",")
+            vDataList = vSn & "|" & vCFPpn & "|" & vEn
 
             Dim row As DataRow
             'Splicer Info
@@ -329,7 +343,7 @@ Public Class Form1
                 vDataList = vDataList & "|" & row(5).ToString
                 'check fail record.
                 If row(5).ToString = "" Or Val(row(5).ToString) > Val(row(4).ToString) Then
-                    vResult = "Failed"
+                    vResult = "FAIL"
                     vRemark = row(1).ToString & " = " & row(5).ToString & " (0/" & row(4).ToString & ")"
                 End If
             Next
@@ -339,11 +353,27 @@ Public Class Form1
 
             vHandShake = objFITSDLL.fn_Handshake(vModel, vOperation, "2.9", vSn)
 
+            'Rev = '0' check-in insert
+            'Rev = '3' check-in update
+
+
+            'Rev = '1'  check-out insert
+            'Rev = '2'  check-out update (not working yet, please use delete and re-insert instead)
+
+            'Rev = '5'  check-out delete
+            'Rev = '6'  check-in delete
+
+
             Select Case vHandShake
                 Case "True"
                     'Need both check in and Out
-                    vCheckIn = objFITSDLL.fn_Log(vModel, vOperation, "0", "FBN Serial No", vSn)
+                    vCheckIn = objFITSDLL.fn_Log(vModel, vOperation, "0", "FBN Serial No", vSn) 'Insert
+                    'vCheckIn = objFITSDLL.fn_Log(vModel, vOperation, "6", "FBN Serial No", vSn) 'Delete
+
                     vCheckOut = objFITSDLL.fn_Log(vModel, vOperation, "1", vParamList, vDataList, "|")
+                    'vCheckIn = objFITSDLL.fn_Log(vModel, vOperation, "5", "FBN Serial No", vSn) 'Checkout Delete
+                    'vCheckIn = objFITSDLL.fn_Log(vModel, vOperation, "6", "FBN Serial No", vSn) 'Checkin Delete 
+
                     'Log(Now() & "--" & vSn & "--" & vModel & "--" & vProcess & "--" & vExeStation & "--" & vLastID & "--" & vCheckOut & "--" & IIf(vResult = "Passed", "PASS", vDisposCode))
                 Case vHandShake.Contains("in-processing in " & vOperation)
                     'already check-in,Need only Check-out
@@ -377,6 +407,10 @@ Public Class Form1
                     txtLossValue.Text = Split(strVal, "=")(1)
                 End If
                 tssMessage.Text = strVal
+                btnSet.Text = "Save"
+            Case "Save"
+                btnSave_Click(sender, e)
+                'btnSet.Text = "SET"
         End Select
     End Sub
 
@@ -550,6 +584,8 @@ NewUnit:
         txtCleaver32.Text = ""
         txtCleaver38.Text = ""
         txtRemark.Text = ""
+        txtLossValue.Text = ""
+        txtLossValue.ForeColor = Color.White
     End Sub
 
     Private Sub btnSaveData_Click(sender As Object, e As EventArgs) Handles btnSaveData.Click
@@ -649,7 +685,7 @@ NewUnit:
         table.Columns.Add("value", GetType(String))
 
         ' Add five rows with those columns filled in the DataTable.
-        table.Rows.Add("Splicer Number", txtSplicerName.Text)
+        table.Rows.Add("Machine S/N", txtSplicerName.Text)
         table.Rows.Add("Cleaver CT-32 Number", txtCleaver32.Text)
         table.Rows.Add("Cleaver CT-38 Number", txtCleaver38.Text)
         table.Rows.Add("Remark", txtRemark.Text.Replace("|", " "))

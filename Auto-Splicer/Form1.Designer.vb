@@ -165,7 +165,6 @@ Partial Class Form1
         Me.btnSet.Name = "btnSet"
         Me.btnSet.Size = New System.Drawing.Size(155, 38)
         Me.btnSet.TabIndex = 9
-        Me.btnSet.TabStop = False
         Me.btnSet.Text = "SET"
         Me.btnSet.UseVisualStyleBackColor = True
         '
@@ -185,7 +184,7 @@ Partial Class Form1
         Me.txtLossValue.Location = New System.Drawing.Point(854, 144)
         Me.txtLossValue.Name = "txtLossValue"
         Me.txtLossValue.Size = New System.Drawing.Size(201, 38)
-        Me.txtLossValue.TabIndex = 9
+        Me.txtLossValue.TabIndex = 10
         '
         'btnSave
         '
@@ -461,9 +460,9 @@ Partial Class Form1
         Me.Label8.ForeColor = System.Drawing.SystemColors.ControlText
         Me.Label8.Location = New System.Drawing.Point(6, 33)
         Me.Label8.Name = "Label8"
-        Me.Label8.Size = New System.Drawing.Size(135, 20)
+        Me.Label8.Size = New System.Drawing.Size(115, 20)
         Me.Label8.TabIndex = 17
-        Me.Label8.Text = "Splicer Number :"
+        Me.Label8.Text = "Machine S/N :"
         '
         'GroupBox4
         '
