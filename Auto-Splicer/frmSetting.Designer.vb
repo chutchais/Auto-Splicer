@@ -28,11 +28,18 @@ Partial Class frmSetting
         Me.TabPage2 = New System.Windows.Forms.TabPage()
         Me.dgModel = New System.Windows.Forms.DataGridView()
         Me.TabPage3 = New System.Windows.Forms.TabPage()
+        Me.dgSplicer = New System.Windows.Forms.DataGridView()
         Me.cbModel = New System.Windows.Forms.ComboBox()
         Me.Label4 = New System.Windows.Forms.Label()
         Me.btnSave = New System.Windows.Forms.Button()
         Me.btnCancel = New System.Windows.Forms.Button()
-        Me.dgSplicer = New System.Windows.Forms.DataGridView()
+        Me.TabPage4 = New System.Windows.Forms.TabPage()
+        Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.txtConfPath = New System.Windows.Forms.TextBox()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.GroupBox2 = New System.Windows.Forms.GroupBox()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.txtLogPath = New System.Windows.Forms.TextBox()
         Me.TabControl1.SuspendLayout()
         Me.TabPage1.SuspendLayout()
         CType(Me.dgOperation, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -40,6 +47,9 @@ Partial Class frmSetting
         CType(Me.dgModel, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TabPage3.SuspendLayout()
         CType(Me.dgSplicer, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.TabPage4.SuspendLayout()
+        Me.GroupBox1.SuspendLayout()
+        Me.GroupBox2.SuspendLayout()
         Me.SuspendLayout()
         '
         'TabControl1
@@ -47,6 +57,7 @@ Partial Class frmSetting
         Me.TabControl1.Controls.Add(Me.TabPage1)
         Me.TabControl1.Controls.Add(Me.TabPage2)
         Me.TabControl1.Controls.Add(Me.TabPage3)
+        Me.TabControl1.Controls.Add(Me.TabPage4)
         Me.TabControl1.Location = New System.Drawing.Point(12, 12)
         Me.TabControl1.Name = "TabControl1"
         Me.TabControl1.SelectedIndex = 0
@@ -107,6 +118,16 @@ Partial Class frmSetting
         Me.TabPage3.Text = "Splicing"
         Me.TabPage3.UseVisualStyleBackColor = True
         '
+        'dgSplicer
+        '
+        Me.dgSplicer.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells
+        Me.dgSplicer.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dgSplicer.Location = New System.Drawing.Point(3, 58)
+        Me.dgSplicer.Name = "dgSplicer"
+        Me.dgSplicer.RowTemplate.Height = 24
+        Me.dgSplicer.Size = New System.Drawing.Size(790, 424)
+        Me.dgSplicer.TabIndex = 22
+        '
         'cbModel
         '
         Me.cbModel.FormattingEnabled = True
@@ -146,15 +167,73 @@ Partial Class frmSetting
         Me.btnCancel.Text = "Cancel"
         Me.btnCancel.UseVisualStyleBackColor = True
         '
-        'dgSplicer
+        'TabPage4
         '
-        Me.dgSplicer.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells
-        Me.dgSplicer.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgSplicer.Location = New System.Drawing.Point(3, 58)
-        Me.dgSplicer.Name = "dgSplicer"
-        Me.dgSplicer.RowTemplate.Height = 24
-        Me.dgSplicer.Size = New System.Drawing.Size(790, 424)
-        Me.dgSplicer.TabIndex = 22
+        Me.TabPage4.Controls.Add(Me.GroupBox2)
+        Me.TabPage4.Controls.Add(Me.GroupBox1)
+        Me.TabPage4.Location = New System.Drawing.Point(4, 25)
+        Me.TabPage4.Name = "TabPage4"
+        Me.TabPage4.Padding = New System.Windows.Forms.Padding(3)
+        Me.TabPage4.Size = New System.Drawing.Size(796, 483)
+        Me.TabPage4.TabIndex = 3
+        Me.TabPage4.Text = "Path"
+        Me.TabPage4.UseVisualStyleBackColor = True
+        '
+        'GroupBox1
+        '
+        Me.GroupBox1.Controls.Add(Me.Label1)
+        Me.GroupBox1.Controls.Add(Me.txtConfPath)
+        Me.GroupBox1.Location = New System.Drawing.Point(19, 25)
+        Me.GroupBox1.Name = "GroupBox1"
+        Me.GroupBox1.Size = New System.Drawing.Size(746, 100)
+        Me.GroupBox1.TabIndex = 0
+        Me.GroupBox1.TabStop = False
+        Me.GroupBox1.Text = "Configuration files"
+        '
+        'txtConfPath
+        '
+        Me.txtConfPath.Location = New System.Drawing.Point(20, 31)
+        Me.txtConfPath.Name = "txtConfPath"
+        Me.txtConfPath.Size = New System.Drawing.Size(663, 22)
+        Me.txtConfPath.TabIndex = 0
+        Me.txtConfPath.Text = "d:\"
+        '
+        'Label1
+        '
+        Me.Label1.AutoSize = True
+        Me.Label1.Location = New System.Drawing.Point(17, 56)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(136, 17)
+        Me.Label1.TabIndex = 1
+        Me.Label1.Text = "Full path end with ""\"""
+        '
+        'GroupBox2
+        '
+        Me.GroupBox2.Controls.Add(Me.Label2)
+        Me.GroupBox2.Controls.Add(Me.txtLogPath)
+        Me.GroupBox2.Location = New System.Drawing.Point(19, 142)
+        Me.GroupBox2.Name = "GroupBox2"
+        Me.GroupBox2.Size = New System.Drawing.Size(746, 100)
+        Me.GroupBox2.TabIndex = 1
+        Me.GroupBox2.TabStop = False
+        Me.GroupBox2.Text = "Output & Log file"
+        '
+        'Label2
+        '
+        Me.Label2.AutoSize = True
+        Me.Label2.Location = New System.Drawing.Point(17, 56)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(136, 17)
+        Me.Label2.TabIndex = 1
+        Me.Label2.Text = "Full path end with ""\"""
+        '
+        'txtLogPath
+        '
+        Me.txtLogPath.Location = New System.Drawing.Point(20, 31)
+        Me.txtLogPath.Name = "txtLogPath"
+        Me.txtLogPath.Size = New System.Drawing.Size(663, 22)
+        Me.txtLogPath.TabIndex = 0
+        Me.txtLogPath.Text = "d:\"
         '
         'frmSetting
         '
@@ -175,6 +254,11 @@ Partial Class frmSetting
         Me.TabPage3.ResumeLayout(False)
         Me.TabPage3.PerformLayout()
         CType(Me.dgSplicer, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.TabPage4.ResumeLayout(False)
+        Me.GroupBox1.ResumeLayout(False)
+        Me.GroupBox1.PerformLayout()
+        Me.GroupBox2.ResumeLayout(False)
+        Me.GroupBox2.PerformLayout()
         Me.ResumeLayout(False)
 
     End Sub
@@ -189,4 +273,11 @@ Partial Class frmSetting
     Friend WithEvents cbModel As System.Windows.Forms.ComboBox
     Friend WithEvents Label4 As System.Windows.Forms.Label
     Friend WithEvents dgSplicer As System.Windows.Forms.DataGridView
+    Friend WithEvents TabPage4 As System.Windows.Forms.TabPage
+    Friend WithEvents GroupBox2 As System.Windows.Forms.GroupBox
+    Friend WithEvents Label2 As System.Windows.Forms.Label
+    Friend WithEvents txtLogPath As System.Windows.Forms.TextBox
+    Friend WithEvents GroupBox1 As System.Windows.Forms.GroupBox
+    Friend WithEvents Label1 As System.Windows.Forms.Label
+    Friend WithEvents txtConfPath As System.Windows.Forms.TextBox
 End Class

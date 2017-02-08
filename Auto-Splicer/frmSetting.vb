@@ -6,14 +6,69 @@ Public Class frmSetting
     Private dataTable As DataTable
     Private dataSet As DataSet
     Private dataSetSplicer As DataSet
+    Private dataSetSetting As DataSet
+
+    Private vConfigurationPath As String
+
+    Public Property configuration_path() As String
+        Get
+            Return getConfigurationPath()
+        End Get
+        Set(ByVal value As String)
+            vConfigurationPath = value
+        End Set
+    End Property
+
+    Public Property output_path() As String
+        Get
+            Return getOutputPath()
+        End Get
+        Set(ByVal value As String)
+            vConfigurationPath = value
+        End Set
+    End Property
+
+    Private Function getConfigurationPath() As String
+        Dim vSplicerPath As String = ""
+        Dim vConfigPath As String = ""
+        Dim vSettingPath As String = Application.StartupPath & "\setting.json"
+        Dim vSettingJson As String = File.ReadAllText(vSettingPath)
+        dataSetSetting = JsonConvert.DeserializeObject(Of DataSet)(vSettingJson)
+        If dataSetSetting.Tables.Count = 0 Then
+            'vSplicerPath = "d:\"
+            getConfigurationPath = "d:\"
+        Else
+            'vSplicerPath = dataSetSetting.Tables("setting").Rows(0).Item("configuration").ToString
+            getConfigurationPath = dataSetSetting.Tables("setting").Rows(0).Item("configuration").ToString
+        End If
+    End Function
+
+    Private Function getOutputPath() As String
+        Dim vSplicerPath As String = ""
+        Dim vConfigPath As String = ""
+        Dim vSettingPath As String = Application.StartupPath & "\setting.json"
+        Dim vSettingJson As String = File.ReadAllText(vSettingPath)
+        dataSetSetting = JsonConvert.DeserializeObject(Of DataSet)(vSettingJson)
+        If dataSetSetting.Tables.Count = 0 Then
+            'vSplicerPath = "d:\"
+            getOutputPath = "d:\"
+        Else
+            'vSplicerPath = dataSetSetting.Tables("setting").Rows(0).Item("configuration").ToString
+            getOutputPath = dataSetSetting.Tables("setting").Rows(0).Item("output").ToString
+        End If
+    End Function
+
 
     Private Sub frmSetting_Load(sender As Object, e As EventArgs) Handles Me.Load
 
-        Dim vSplicerFile As String = Form1.vConfPath & "splicer.json"
-        Dim vConfigFile As String = Form1.vConfPath & "configuration.json"
-        'Dim vJson As String
 
-        'Dim dataSet As DataSet = New DataSet("configuration")
+        'Get Path Setting
+        Dim vSplicerFile As String = getConfigurationPath() & "splicer.json"
+        Dim vConfigFile As String = getConfigurationPath() & "configuration.json"
+
+        txtConfPath.Text = getConfigurationPath()
+        txtLogPath.Text = getOutputPath()
+
         ''---Model---
         Dim vConfigJson As String = File.ReadAllText(vConfigFile)
         Dim vSplicerJson As String = File.ReadAllText(vSplicerFile)
@@ -37,11 +92,16 @@ Public Class frmSetting
     End Sub
 
     Private Sub btnSave_Click(sender As Object, e As EventArgs) Handles btnSave.Click
-        'DataSet.Tables.Add(GetSplicerTable)
+        Dim vSettingFile As String = Application.StartupPath & "\setting.json"
+        dataSetSetting.Tables("setting").Rows(0).Item("output") = txtLogPath.Text
+        dataSetSetting.Tables("setting").Rows(0).Item("configuration") = txtConfPath.Text
+        Dim vJsonSettingStr As String = JsonConvert.SerializeObject(dataSetSetting, Formatting.Indented)
+        File.WriteAllText(vSettingFile, vJsonSettingStr)
+
 
         'DataSet.Tables("configuration").TableName = txtSN.Text
-        Dim vConfigFile As String = Form1.vConfPath & "configuration.json"
-        Dim vSplicerFile As String = Form1.vConfPath & "splicer.json"
+        Dim vConfigFile As String = getConfigurationPath() & "configuration.json"
+        Dim vSplicerFile As String = getConfigurationPath() & "splicer.json"
 
         Dim vJsonStr As String = JsonConvert.SerializeObject(dataSet, Formatting.Indented)
         File.WriteAllText(vConfigFile, vJsonStr)

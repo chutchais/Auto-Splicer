@@ -7,6 +7,7 @@ Public Class Form1
     Private splicerTable As DataTable
     Private dataTable As DataTable
     Private dataSet As DataSet
+    Private dataSetSetting As DataSet
 
     Private vRecentSaved As String = Application.StartupPath & "\recently_saved.json"
     Public vConfPath As String = "d:\" 'Application.StartupPath & "\"
@@ -67,11 +68,43 @@ Public Class Form1
             vInitResult = .fn_InitDB("*", "", "2.9", "dbAcacia")
         End With
 
+        Me.Text = Me.Text + " version : " & Application.ProductVersion.Trim
         'Dim vHandShake As String
         'vHandShake = objFITSDLL.fn_Handshake("CFP", "180", "2.9", "vSn")
         ' vHandShake = objFITSDLL.fn_Query("CFP", "180", "2.9", "vSn")
         ' UsbFsm.InitDriver(Me.Handle)
     End Sub
+
+    Private Function getConfigurationPath() As String
+        Dim vSplicerPath As String = ""
+        Dim vConfigPath As String = ""
+        Dim vSettingPath As String = Application.StartupPath & "\setting.json"
+        Dim vSettingJson As String = File.ReadAllText(vSettingPath)
+        dataSetSetting = JsonConvert.DeserializeObject(Of DataSet)(vSettingJson)
+        If dataSetSetting.Tables.Count = 0 Then
+            'vSplicerPath = "d:\"
+            getConfigurationPath = "d:\"
+        Else
+            'vSplicerPath = dataSetSetting.Tables("setting").Rows(0).Item("configuration").ToString
+            getConfigurationPath = dataSetSetting.Tables("setting").Rows(0).Item("configuration").ToString
+        End If
+    End Function
+
+    Private Function getOutputPath() As String
+        Dim vSplicerPath As String = ""
+        Dim vConfigPath As String = ""
+        Dim vSettingPath As String = Application.StartupPath & "\setting.json"
+        Dim vSettingJson As String = File.ReadAllText(vSettingPath)
+        dataSetSetting = JsonConvert.DeserializeObject(Of DataSet)(vSettingJson)
+        If dataSetSetting.Tables.Count = 0 Then
+            'vSplicerPath = "d:\"
+            getOutputPath = "d:\"
+        Else
+            'vSplicerPath = dataSetSetting.Tables("setting").Rows(0).Item("configuration").ToString
+            getOutputPath = dataSetSetting.Tables("setting").Rows(0).Item("output").ToString
+        End If
+    End Function
+
 
     Sub initialConfiguration()
 
@@ -80,7 +113,7 @@ Public Class Form1
         txtEn.Text = "" : txtEn.Enabled = True : txtEn.Select()
         btnLogIn.Enabled = True : btnLogOut.Enabled = False
         '-----
-
+        vConfPath = getConfigurationPath()
         '---Model---
         Dim vModelJson As String = File.ReadAllText(vConfPath & "model.json")
         Dim vModeldataSet As DataSet = JsonConvert.DeserializeObject(Of DataSet)(vModelJson)
@@ -305,6 +338,8 @@ Public Class Form1
             Dim vOperation As String = cbOperation.SelectedValue
             Dim vEn As String = txtEn.Text
             If uploadToFit(vSn, vModel, vOperation, vEn) Then
+                'Keep Output file
+                saveLogFile(vModel & "_" & vSn & ".json", vModel)
                 MsgBox("Upload data successful", MsgBoxStyle.Information, "Success!!")
             End If
             'intial data
@@ -312,6 +347,20 @@ Public Class Form1
             If File.Exists(vRecentSaved) Then
                 File.Delete(vRecentSaved)
             End If
+        End If
+    End Sub
+
+    Sub saveLogFile(vFilename As String, vModel As String)
+        Dim vOutFolder As String = getOutputPath() & Now.ToString("yyyyMMdd") & "\"
+        If Not Directory.Exists(vOutFolder) Then
+            ' This path is a directory.
+            Directory.CreateDirectory(vOutFolder)
+        End If
+        If File.Exists(vOutFolder & vFilename) Then
+            File.Delete(vOutFolder & vFilename)
+        Else
+            Dim vJsonStr As String = JsonConvert.SerializeObject(dataSet.Tables(vModel), Formatting.Indented)
+            File.WriteAllText(vOutFolder & vFilename, vJsonStr)
         End If
     End Sub
 
@@ -371,8 +420,8 @@ Public Class Form1
                     'vCheckIn = objFITSDLL.fn_Log(vModel, vOperation, "6", "FBN Serial No", vSn) 'Delete
 
                     vCheckOut = objFITSDLL.fn_Log(vModel, vOperation, "1", vParamList, vDataList, "|")
-                    'vCheckIn = objFITSDLL.fn_Log(vModel, vOperation, "5", "FBN Serial No", vSn) 'Checkout Delete
-                    'vCheckIn = objFITSDLL.fn_Log(vModel, vOperation, "6", "FBN Serial No", vSn) 'Checkin Delete 
+                    vCheckIn = objFITSDLL.fn_Log(vModel, vOperation, "5", "FBN Serial No", vSn) 'Checkout Delete
+                    vCheckIn = objFITSDLL.fn_Log(vModel, vOperation, "6", "FBN Serial No", vSn) 'Checkin Delete 
 
                     'Log(Now() & "--" & vSn & "--" & vModel & "--" & vProcess & "--" & vExeStation & "--" & vLastID & "--" & vCheckOut & "--" & IIf(vResult = "Passed", "PASS", vDisposCode))
                 Case vHandShake.Contains("in-processing in " & vOperation)
