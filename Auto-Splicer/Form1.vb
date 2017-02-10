@@ -152,7 +152,7 @@ Public Class Form1
 
         lblArcCount.Text = dataSetArc.Tables("arc").Rows(0).Item("count")
         lblArcSince.Text = dataSetArc.Tables("arc").Rows(0).Item("startdate")
-        lblLast.Text = dataSetArc.Tables("arc").Rows(0).Item("lastdate")
+        lblCurrentArc.Text = dataSetArc.Tables("arc").Rows(0).Item("lastdate")
         lblMaxArc.Text = dataSetArc.Tables("arc").Rows(0).Item("maxcount")
         lblMaxHour.Text = dataSetArc.Tables("arc").Rows(0).Item("maxhour")
 
@@ -501,7 +501,7 @@ Public Class Form1
         dataSetArc.Tables("arc").Rows(0).Item("count") = dataSetArc.Tables("arc").Rows(0).Item("count") + 1
         dataSetArc.Tables("arc").Rows(0).Item("lastdate") = Now
         lblArcCount.Text = dataSetArc.Tables("arc").Rows(0).Item("count")
-        lblArcSince.Text = dataSetArc.Tables("arc").Rows(0).Item("lastdate")
+        lblCurrentArc.Text = dataSetArc.Tables("arc").Rows(0).Item("lastdate")
 
         Dim vArcFile As String = getConfigurationPath() & "arc.json"
         Dim vJsonArcStr As String = JsonConvert.SerializeObject(dataSetArc, Formatting.Indented)

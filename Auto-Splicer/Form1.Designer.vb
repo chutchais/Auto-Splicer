@@ -65,16 +65,16 @@ Partial Class Form1
         Me.txtRemark = New System.Windows.Forms.TextBox()
         Me.btnSetting = New System.Windows.Forms.Button()
         Me.GroupBox5 = New System.Windows.Forms.GroupBox()
-        Me.lblLast = New System.Windows.Forms.Label()
-        Me.Label14 = New System.Windows.Forms.Label()
-        Me.lblArcSince = New System.Windows.Forms.Label()
-        Me.Label12 = New System.Windows.Forms.Label()
-        Me.lblArcCount = New System.Windows.Forms.Label()
-        Me.Label11 = New System.Windows.Forms.Label()
         Me.lblMaxHour = New System.Windows.Forms.Label()
         Me.Label15 = New System.Windows.Forms.Label()
         Me.lblMaxArc = New System.Windows.Forms.Label()
         Me.Label17 = New System.Windows.Forms.Label()
+        Me.lblCurrentArc = New System.Windows.Forms.Label()
+        Me.label14 = New System.Windows.Forms.Label()
+        Me.lblArcSince = New System.Windows.Forms.Label()
+        Me.Label12 = New System.Windows.Forms.Label()
+        Me.lblArcCount = New System.Windows.Forms.Label()
+        Me.Label11 = New System.Windows.Forms.Label()
         Me.StatusStrip1.SuspendLayout()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox1.SuspendLayout()
@@ -512,8 +512,8 @@ Partial Class Form1
         Me.GroupBox5.Controls.Add(Me.Label15)
         Me.GroupBox5.Controls.Add(Me.lblMaxArc)
         Me.GroupBox5.Controls.Add(Me.Label17)
-        Me.GroupBox5.Controls.Add(Me.lblLast)
-        Me.GroupBox5.Controls.Add(Me.Label14)
+        Me.GroupBox5.Controls.Add(Me.lblCurrentArc)
+        Me.GroupBox5.Controls.Add(Me.label14)
         Me.GroupBox5.Controls.Add(Me.lblArcSince)
         Me.GroupBox5.Controls.Add(Me.Label12)
         Me.GroupBox5.Controls.Add(Me.lblArcCount)
@@ -525,23 +525,59 @@ Partial Class Form1
         Me.GroupBox5.TabStop = False
         Me.GroupBox5.Text = "Control"
         '
-        'lblLast
+        'lblMaxHour
         '
-        Me.lblLast.AutoSize = True
-        Me.lblLast.Location = New System.Drawing.Point(76, 133)
-        Me.lblLast.Name = "lblLast"
-        Me.lblLast.Size = New System.Drawing.Size(24, 17)
-        Me.lblLast.TabIndex = 11
-        Me.lblLast.Text = "...."
+        Me.lblMaxHour.AutoSize = True
+        Me.lblMaxHour.Location = New System.Drawing.Point(82, 83)
+        Me.lblMaxHour.Name = "lblMaxHour"
+        Me.lblMaxHour.Size = New System.Drawing.Size(24, 17)
+        Me.lblMaxHour.TabIndex = 15
+        Me.lblMaxHour.Text = "...."
         '
-        'Label14
+        'Label15
         '
-        Me.Label14.AutoSize = True
-        Me.Label14.Location = New System.Drawing.Point(7, 133)
-        Me.Label14.Name = "Label14"
-        Me.Label14.Size = New System.Drawing.Size(68, 17)
-        Me.Label14.TabIndex = 10
-        Me.Label14.Text = "Last Arc :"
+        Me.Label15.AutoSize = True
+        Me.Label15.Location = New System.Drawing.Point(7, 83)
+        Me.Label15.Name = "Label15"
+        Me.Label15.Size = New System.Drawing.Size(74, 17)
+        Me.Label15.TabIndex = 14
+        Me.Label15.Text = "Max hour :"
+        '
+        'lblMaxArc
+        '
+        Me.lblMaxArc.AutoSize = True
+        Me.lblMaxArc.Location = New System.Drawing.Point(82, 57)
+        Me.lblMaxArc.Name = "lblMaxArc"
+        Me.lblMaxArc.Size = New System.Drawing.Size(24, 17)
+        Me.lblMaxArc.TabIndex = 13
+        Me.lblMaxArc.Text = "...."
+        '
+        'Label17
+        '
+        Me.Label17.AutoSize = True
+        Me.Label17.Location = New System.Drawing.Point(7, 57)
+        Me.Label17.Name = "Label17"
+        Me.Label17.Size = New System.Drawing.Size(66, 17)
+        Me.Label17.TabIndex = 12
+        Me.Label17.Text = "Max Arc :"
+        '
+        'lblCurrentArc
+        '
+        Me.lblCurrentArc.AutoSize = True
+        Me.lblCurrentArc.Location = New System.Drawing.Point(76, 133)
+        Me.lblCurrentArc.Name = "lblCurrentArc"
+        Me.lblCurrentArc.Size = New System.Drawing.Size(24, 17)
+        Me.lblCurrentArc.TabIndex = 11
+        Me.lblCurrentArc.Text = "...."
+        '
+        'label14
+        '
+        Me.label14.AutoSize = True
+        Me.label14.Location = New System.Drawing.Point(7, 133)
+        Me.label14.Name = "label14"
+        Me.label14.Size = New System.Drawing.Size(68, 17)
+        Me.label14.TabIndex = 10
+        Me.label14.Text = "Last Arc :"
         '
         'lblArcSince
         '
@@ -579,42 +615,6 @@ Partial Class Form1
         Me.Label11.Size = New System.Drawing.Size(129, 17)
         Me.Label11.TabIndex = 6
         Me.Label11.Text = "Current Arc Count :"
-        '
-        'lblMaxHour
-        '
-        Me.lblMaxHour.AutoSize = True
-        Me.lblMaxHour.Location = New System.Drawing.Point(82, 83)
-        Me.lblMaxHour.Name = "lblMaxHour"
-        Me.lblMaxHour.Size = New System.Drawing.Size(24, 17)
-        Me.lblMaxHour.TabIndex = 15
-        Me.lblMaxHour.Text = "...."
-        '
-        'Label15
-        '
-        Me.Label15.AutoSize = True
-        Me.Label15.Location = New System.Drawing.Point(7, 83)
-        Me.Label15.Name = "Label15"
-        Me.Label15.Size = New System.Drawing.Size(74, 17)
-        Me.Label15.TabIndex = 14
-        Me.Label15.Text = "Max hour :"
-        '
-        'lblMaxArc
-        '
-        Me.lblMaxArc.AutoSize = True
-        Me.lblMaxArc.Location = New System.Drawing.Point(82, 57)
-        Me.lblMaxArc.Name = "lblMaxArc"
-        Me.lblMaxArc.Size = New System.Drawing.Size(24, 17)
-        Me.lblMaxArc.TabIndex = 13
-        Me.lblMaxArc.Text = "...."
-        '
-        'Label17
-        '
-        Me.Label17.AutoSize = True
-        Me.Label17.Location = New System.Drawing.Point(7, 57)
-        Me.Label17.Name = "Label17"
-        Me.Label17.Size = New System.Drawing.Size(66, 17)
-        Me.Label17.TabIndex = 12
-        Me.Label17.Text = "Max Arc :"
         '
         'Form1
         '
@@ -708,8 +708,8 @@ Partial Class Form1
     Friend WithEvents Label12 As System.Windows.Forms.Label
     Friend WithEvents lblArcCount As System.Windows.Forms.Label
     Friend WithEvents Label11 As System.Windows.Forms.Label
-    Friend WithEvents lblLast As System.Windows.Forms.Label
-    Friend WithEvents Label14 As System.Windows.Forms.Label
+    Friend WithEvents lblCurrentArc As System.Windows.Forms.Label
+    Friend WithEvents label14 As System.Windows.Forms.Label
     Friend WithEvents lblMaxHour As System.Windows.Forms.Label
     Friend WithEvents Label15 As System.Windows.Forms.Label
     Friend WithEvents lblMaxArc As System.Windows.Forms.Label
