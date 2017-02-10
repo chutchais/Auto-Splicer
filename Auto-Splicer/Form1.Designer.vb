@@ -64,12 +64,24 @@ Partial Class Form1
         Me.GroupBox4 = New System.Windows.Forms.GroupBox()
         Me.txtRemark = New System.Windows.Forms.TextBox()
         Me.btnSetting = New System.Windows.Forms.Button()
+        Me.GroupBox5 = New System.Windows.Forms.GroupBox()
+        Me.lblLast = New System.Windows.Forms.Label()
+        Me.Label14 = New System.Windows.Forms.Label()
+        Me.lblArcSince = New System.Windows.Forms.Label()
+        Me.Label12 = New System.Windows.Forms.Label()
+        Me.lblArcCount = New System.Windows.Forms.Label()
+        Me.Label11 = New System.Windows.Forms.Label()
+        Me.lblMaxHour = New System.Windows.Forms.Label()
+        Me.Label15 = New System.Windows.Forms.Label()
+        Me.lblMaxArc = New System.Windows.Forms.Label()
+        Me.Label17 = New System.Windows.Forms.Label()
         Me.StatusStrip1.SuspendLayout()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         Me.GroupBox3.SuspendLayout()
         Me.GroupBox4.SuspendLayout()
+        Me.GroupBox5.SuspendLayout()
         Me.SuspendLayout()
         '
         'Button1
@@ -494,11 +506,122 @@ Partial Class Form1
         Me.btnSetting.Text = "SETTING"
         Me.btnSetting.UseVisualStyleBackColor = True
         '
+        'GroupBox5
+        '
+        Me.GroupBox5.Controls.Add(Me.lblMaxHour)
+        Me.GroupBox5.Controls.Add(Me.Label15)
+        Me.GroupBox5.Controls.Add(Me.lblMaxArc)
+        Me.GroupBox5.Controls.Add(Me.Label17)
+        Me.GroupBox5.Controls.Add(Me.lblLast)
+        Me.GroupBox5.Controls.Add(Me.Label14)
+        Me.GroupBox5.Controls.Add(Me.lblArcSince)
+        Me.GroupBox5.Controls.Add(Me.Label12)
+        Me.GroupBox5.Controls.Add(Me.lblArcCount)
+        Me.GroupBox5.Controls.Add(Me.Label11)
+        Me.GroupBox5.Location = New System.Drawing.Point(12, 518)
+        Me.GroupBox5.Name = "GroupBox5"
+        Me.GroupBox5.Size = New System.Drawing.Size(278, 170)
+        Me.GroupBox5.TabIndex = 20
+        Me.GroupBox5.TabStop = False
+        Me.GroupBox5.Text = "Control"
+        '
+        'lblLast
+        '
+        Me.lblLast.AutoSize = True
+        Me.lblLast.Location = New System.Drawing.Point(76, 133)
+        Me.lblLast.Name = "lblLast"
+        Me.lblLast.Size = New System.Drawing.Size(24, 17)
+        Me.lblLast.TabIndex = 11
+        Me.lblLast.Text = "...."
+        '
+        'Label14
+        '
+        Me.Label14.AutoSize = True
+        Me.Label14.Location = New System.Drawing.Point(7, 133)
+        Me.Label14.Name = "Label14"
+        Me.Label14.Size = New System.Drawing.Size(68, 17)
+        Me.Label14.TabIndex = 10
+        Me.Label14.Text = "Last Arc :"
+        '
+        'lblArcSince
+        '
+        Me.lblArcSince.AutoSize = True
+        Me.lblArcSince.Location = New System.Drawing.Point(64, 107)
+        Me.lblArcSince.Name = "lblArcSince"
+        Me.lblArcSince.Size = New System.Drawing.Size(24, 17)
+        Me.lblArcSince.TabIndex = 9
+        Me.lblArcSince.Text = "...."
+        '
+        'Label12
+        '
+        Me.Label12.AutoSize = True
+        Me.Label12.Location = New System.Drawing.Point(7, 107)
+        Me.Label12.Name = "Label12"
+        Me.Label12.Size = New System.Drawing.Size(51, 17)
+        Me.Label12.TabIndex = 8
+        Me.Label12.Text = "Since :"
+        '
+        'lblArcCount
+        '
+        Me.lblArcCount.AutoSize = True
+        Me.lblArcCount.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblArcCount.Location = New System.Drawing.Point(142, 23)
+        Me.lblArcCount.Name = "lblArcCount"
+        Me.lblArcCount.Size = New System.Drawing.Size(23, 25)
+        Me.lblArcCount.TabIndex = 7
+        Me.lblArcCount.Text = "1"
+        '
+        'Label11
+        '
+        Me.Label11.AutoSize = True
+        Me.Label11.Location = New System.Drawing.Point(7, 30)
+        Me.Label11.Name = "Label11"
+        Me.Label11.Size = New System.Drawing.Size(129, 17)
+        Me.Label11.TabIndex = 6
+        Me.Label11.Text = "Current Arc Count :"
+        '
+        'lblMaxHour
+        '
+        Me.lblMaxHour.AutoSize = True
+        Me.lblMaxHour.Location = New System.Drawing.Point(82, 83)
+        Me.lblMaxHour.Name = "lblMaxHour"
+        Me.lblMaxHour.Size = New System.Drawing.Size(24, 17)
+        Me.lblMaxHour.TabIndex = 15
+        Me.lblMaxHour.Text = "...."
+        '
+        'Label15
+        '
+        Me.Label15.AutoSize = True
+        Me.Label15.Location = New System.Drawing.Point(7, 83)
+        Me.Label15.Name = "Label15"
+        Me.Label15.Size = New System.Drawing.Size(74, 17)
+        Me.Label15.TabIndex = 14
+        Me.Label15.Text = "Max hour :"
+        '
+        'lblMaxArc
+        '
+        Me.lblMaxArc.AutoSize = True
+        Me.lblMaxArc.Location = New System.Drawing.Point(82, 57)
+        Me.lblMaxArc.Name = "lblMaxArc"
+        Me.lblMaxArc.Size = New System.Drawing.Size(24, 17)
+        Me.lblMaxArc.TabIndex = 13
+        Me.lblMaxArc.Text = "...."
+        '
+        'Label17
+        '
+        Me.Label17.AutoSize = True
+        Me.Label17.Location = New System.Drawing.Point(7, 57)
+        Me.Label17.Name = "Label17"
+        Me.Label17.Size = New System.Drawing.Size(66, 17)
+        Me.Label17.TabIndex = 12
+        Me.Label17.Text = "Max Arc :"
+        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1180, 810)
+        Me.Controls.Add(Me.GroupBox5)
         Me.Controls.Add(Me.btnSetting)
         Me.Controls.Add(Me.GroupBox4)
         Me.Controls.Add(Me.GroupBox3)
@@ -532,6 +655,8 @@ Partial Class Form1
         Me.GroupBox3.PerformLayout()
         Me.GroupBox4.ResumeLayout(False)
         Me.GroupBox4.PerformLayout()
+        Me.GroupBox5.ResumeLayout(False)
+        Me.GroupBox5.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -578,5 +703,16 @@ Partial Class Form1
     Friend WithEvents GroupBox4 As System.Windows.Forms.GroupBox
     Friend WithEvents txtRemark As System.Windows.Forms.TextBox
     Friend WithEvents btnSetting As System.Windows.Forms.Button
+    Friend WithEvents GroupBox5 As System.Windows.Forms.GroupBox
+    Friend WithEvents lblArcSince As System.Windows.Forms.Label
+    Friend WithEvents Label12 As System.Windows.Forms.Label
+    Friend WithEvents lblArcCount As System.Windows.Forms.Label
+    Friend WithEvents Label11 As System.Windows.Forms.Label
+    Friend WithEvents lblLast As System.Windows.Forms.Label
+    Friend WithEvents Label14 As System.Windows.Forms.Label
+    Friend WithEvents lblMaxHour As System.Windows.Forms.Label
+    Friend WithEvents Label15 As System.Windows.Forms.Label
+    Friend WithEvents lblMaxArc As System.Windows.Forms.Label
+    Friend WithEvents Label17 As System.Windows.Forms.Label
 
 End Class

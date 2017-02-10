@@ -31,15 +31,29 @@ Partial Class frmSetting
         Me.dgSplicer = New System.Windows.Forms.DataGridView()
         Me.cbModel = New System.Windows.Forms.ComboBox()
         Me.Label4 = New System.Windows.Forms.Label()
-        Me.btnSave = New System.Windows.Forms.Button()
-        Me.btnCancel = New System.Windows.Forms.Button()
         Me.TabPage4 = New System.Windows.Forms.TabPage()
-        Me.GroupBox1 = New System.Windows.Forms.GroupBox()
-        Me.txtConfPath = New System.Windows.Forms.TextBox()
-        Me.Label1 = New System.Windows.Forms.Label()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.txtLogPath = New System.Windows.Forms.TextBox()
+        Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.txtConfPath = New System.Windows.Forms.TextBox()
+        Me.TabPage5 = New System.Windows.Forms.TabPage()
+        Me.GroupBox3 = New System.Windows.Forms.GroupBox()
+        Me.lblLastArc = New System.Windows.Forms.Label()
+        Me.Label10 = New System.Windows.Forms.Label()
+        Me.lblLastReset = New System.Windows.Forms.Label()
+        Me.Label8 = New System.Windows.Forms.Label()
+        Me.Label7 = New System.Windows.Forms.Label()
+        Me.txtMaxHour = New System.Windows.Forms.TextBox()
+        Me.Label6 = New System.Windows.Forms.Label()
+        Me.lblArcCount = New System.Windows.Forms.Label()
+        Me.btnArcReset = New System.Windows.Forms.Button()
+        Me.txtArcMax = New System.Windows.Forms.TextBox()
+        Me.Label5 = New System.Windows.Forms.Label()
+        Me.Label3 = New System.Windows.Forms.Label()
+        Me.btnSave = New System.Windows.Forms.Button()
+        Me.btnCancel = New System.Windows.Forms.Button()
         Me.TabControl1.SuspendLayout()
         Me.TabPage1.SuspendLayout()
         CType(Me.dgOperation, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -48,8 +62,10 @@ Partial Class frmSetting
         Me.TabPage3.SuspendLayout()
         CType(Me.dgSplicer, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TabPage4.SuspendLayout()
-        Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
+        Me.GroupBox1.SuspendLayout()
+        Me.TabPage5.SuspendLayout()
+        Me.GroupBox3.SuspendLayout()
         Me.SuspendLayout()
         '
         'TabControl1
@@ -58,6 +74,7 @@ Partial Class frmSetting
         Me.TabControl1.Controls.Add(Me.TabPage2)
         Me.TabControl1.Controls.Add(Me.TabPage3)
         Me.TabControl1.Controls.Add(Me.TabPage4)
+        Me.TabControl1.Controls.Add(Me.TabPage5)
         Me.TabControl1.Location = New System.Drawing.Point(12, 12)
         Me.TabControl1.Name = "TabControl1"
         Me.TabControl1.SelectedIndex = 0
@@ -149,24 +166,6 @@ Partial Class frmSetting
         Me.Label4.TabIndex = 20
         Me.Label4.Text = "Model :"
         '
-        'btnSave
-        '
-        Me.btnSave.Location = New System.Drawing.Point(692, 526)
-        Me.btnSave.Name = "btnSave"
-        Me.btnSave.Size = New System.Drawing.Size(120, 40)
-        Me.btnSave.TabIndex = 1
-        Me.btnSave.Text = "Save"
-        Me.btnSave.UseVisualStyleBackColor = True
-        '
-        'btnCancel
-        '
-        Me.btnCancel.Location = New System.Drawing.Point(566, 526)
-        Me.btnCancel.Name = "btnCancel"
-        Me.btnCancel.Size = New System.Drawing.Size(120, 40)
-        Me.btnCancel.TabIndex = 2
-        Me.btnCancel.Text = "Cancel"
-        Me.btnCancel.UseVisualStyleBackColor = True
-        '
         'TabPage4
         '
         Me.TabPage4.Controls.Add(Me.GroupBox2)
@@ -178,34 +177,6 @@ Partial Class frmSetting
         Me.TabPage4.TabIndex = 3
         Me.TabPage4.Text = "Path"
         Me.TabPage4.UseVisualStyleBackColor = True
-        '
-        'GroupBox1
-        '
-        Me.GroupBox1.Controls.Add(Me.Label1)
-        Me.GroupBox1.Controls.Add(Me.txtConfPath)
-        Me.GroupBox1.Location = New System.Drawing.Point(19, 25)
-        Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(746, 100)
-        Me.GroupBox1.TabIndex = 0
-        Me.GroupBox1.TabStop = False
-        Me.GroupBox1.Text = "Configuration files"
-        '
-        'txtConfPath
-        '
-        Me.txtConfPath.Location = New System.Drawing.Point(20, 31)
-        Me.txtConfPath.Name = "txtConfPath"
-        Me.txtConfPath.Size = New System.Drawing.Size(663, 22)
-        Me.txtConfPath.TabIndex = 0
-        Me.txtConfPath.Text = "d:\"
-        '
-        'Label1
-        '
-        Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(17, 56)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(136, 17)
-        Me.Label1.TabIndex = 1
-        Me.Label1.Text = "Full path end with ""\"""
         '
         'GroupBox2
         '
@@ -235,6 +206,192 @@ Partial Class frmSetting
         Me.txtLogPath.TabIndex = 0
         Me.txtLogPath.Text = "d:\"
         '
+        'GroupBox1
+        '
+        Me.GroupBox1.Controls.Add(Me.Label1)
+        Me.GroupBox1.Controls.Add(Me.txtConfPath)
+        Me.GroupBox1.Location = New System.Drawing.Point(19, 25)
+        Me.GroupBox1.Name = "GroupBox1"
+        Me.GroupBox1.Size = New System.Drawing.Size(746, 100)
+        Me.GroupBox1.TabIndex = 0
+        Me.GroupBox1.TabStop = False
+        Me.GroupBox1.Text = "Configuration files"
+        '
+        'Label1
+        '
+        Me.Label1.AutoSize = True
+        Me.Label1.Location = New System.Drawing.Point(17, 56)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(136, 17)
+        Me.Label1.TabIndex = 1
+        Me.Label1.Text = "Full path end with ""\"""
+        '
+        'txtConfPath
+        '
+        Me.txtConfPath.Location = New System.Drawing.Point(20, 31)
+        Me.txtConfPath.Name = "txtConfPath"
+        Me.txtConfPath.Size = New System.Drawing.Size(663, 22)
+        Me.txtConfPath.TabIndex = 0
+        Me.txtConfPath.Text = "d:\"
+        '
+        'TabPage5
+        '
+        Me.TabPage5.Controls.Add(Me.GroupBox3)
+        Me.TabPage5.Location = New System.Drawing.Point(4, 25)
+        Me.TabPage5.Name = "TabPage5"
+        Me.TabPage5.Padding = New System.Windows.Forms.Padding(3)
+        Me.TabPage5.Size = New System.Drawing.Size(796, 483)
+        Me.TabPage5.TabIndex = 4
+        Me.TabPage5.Text = "Control"
+        Me.TabPage5.UseVisualStyleBackColor = True
+        '
+        'GroupBox3
+        '
+        Me.GroupBox3.Controls.Add(Me.lblLastArc)
+        Me.GroupBox3.Controls.Add(Me.Label10)
+        Me.GroupBox3.Controls.Add(Me.lblLastReset)
+        Me.GroupBox3.Controls.Add(Me.Label8)
+        Me.GroupBox3.Controls.Add(Me.Label7)
+        Me.GroupBox3.Controls.Add(Me.txtMaxHour)
+        Me.GroupBox3.Controls.Add(Me.Label6)
+        Me.GroupBox3.Controls.Add(Me.lblArcCount)
+        Me.GroupBox3.Controls.Add(Me.btnArcReset)
+        Me.GroupBox3.Controls.Add(Me.txtArcMax)
+        Me.GroupBox3.Controls.Add(Me.Label5)
+        Me.GroupBox3.Controls.Add(Me.Label3)
+        Me.GroupBox3.Location = New System.Drawing.Point(23, 12)
+        Me.GroupBox3.Name = "GroupBox3"
+        Me.GroupBox3.Size = New System.Drawing.Size(749, 128)
+        Me.GroupBox3.TabIndex = 0
+        Me.GroupBox3.TabStop = False
+        Me.GroupBox3.Text = "Arc Control"
+        '
+        'lblLastArc
+        '
+        Me.lblLastArc.AutoSize = True
+        Me.lblLastArc.ForeColor = System.Drawing.Color.Blue
+        Me.lblLastArc.Location = New System.Drawing.Point(354, 100)
+        Me.lblLastArc.Name = "lblLastArc"
+        Me.lblLastArc.Size = New System.Drawing.Size(24, 17)
+        Me.lblLastArc.TabIndex = 12
+        Me.lblLastArc.Text = "...."
+        '
+        'Label10
+        '
+        Me.Label10.AutoSize = True
+        Me.Label10.Location = New System.Drawing.Point(280, 100)
+        Me.Label10.Name = "Label10"
+        Me.Label10.Size = New System.Drawing.Size(68, 17)
+        Me.Label10.TabIndex = 11
+        Me.Label10.Text = "Last Arc :"
+        '
+        'lblLastReset
+        '
+        Me.lblLastReset.AutoSize = True
+        Me.lblLastReset.ForeColor = System.Drawing.Color.Blue
+        Me.lblLastReset.Location = New System.Drawing.Point(100, 100)
+        Me.lblLastReset.Name = "lblLastReset"
+        Me.lblLastReset.Size = New System.Drawing.Size(24, 17)
+        Me.lblLastReset.TabIndex = 10
+        Me.lblLastReset.Text = "...."
+        '
+        'Label8
+        '
+        Me.Label8.AutoSize = True
+        Me.Label8.Location = New System.Drawing.Point(10, 100)
+        Me.Label8.Name = "Label8"
+        Me.Label8.Size = New System.Drawing.Size(84, 17)
+        Me.Label8.TabIndex = 9
+        Me.Label8.Text = "Last Reset :"
+        '
+        'Label7
+        '
+        Me.Label7.AutoSize = True
+        Me.Label7.Location = New System.Drawing.Point(413, 63)
+        Me.Label7.Name = "Label7"
+        Me.Label7.Size = New System.Drawing.Size(28, 17)
+        Me.Label7.TabIndex = 8
+        Me.Label7.Text = "hrs"
+        '
+        'txtMaxHour
+        '
+        Me.txtMaxHour.Location = New System.Drawing.Point(359, 58)
+        Me.txtMaxHour.Name = "txtMaxHour"
+        Me.txtMaxHour.Size = New System.Drawing.Size(48, 22)
+        Me.txtMaxHour.TabIndex = 7
+        Me.txtMaxHour.Text = "51"
+        '
+        'Label6
+        '
+        Me.Label6.AutoSize = True
+        Me.Label6.Location = New System.Drawing.Point(280, 63)
+        Me.Label6.Name = "Label6"
+        Me.Label6.Size = New System.Drawing.Size(73, 17)
+        Me.Label6.TabIndex = 6
+        Me.Label6.Text = "Not Over :"
+        '
+        'lblArcCount
+        '
+        Me.lblArcCount.AutoSize = True
+        Me.lblArcCount.Location = New System.Drawing.Point(146, 29)
+        Me.lblArcCount.Name = "lblArcCount"
+        Me.lblArcCount.Size = New System.Drawing.Size(16, 17)
+        Me.lblArcCount.TabIndex = 5
+        Me.lblArcCount.Text = "1"
+        '
+        'btnArcReset
+        '
+        Me.btnArcReset.Location = New System.Drawing.Point(605, 93)
+        Me.btnArcReset.Name = "btnArcReset"
+        Me.btnArcReset.Size = New System.Drawing.Size(138, 24)
+        Me.btnArcReset.TabIndex = 52
+        Me.btnArcReset.Text = "Reset Acr count"
+        Me.btnArcReset.UseVisualStyleBackColor = True
+        '
+        'txtArcMax
+        '
+        Me.txtArcMax.Location = New System.Drawing.Point(103, 60)
+        Me.txtArcMax.Name = "txtArcMax"
+        Me.txtArcMax.Size = New System.Drawing.Size(52, 22)
+        Me.txtArcMax.TabIndex = 50
+        Me.txtArcMax.Text = "100"
+        '
+        'Label5
+        '
+        Me.Label5.AutoSize = True
+        Me.Label5.Location = New System.Drawing.Point(10, 63)
+        Me.Label5.Name = "Label5"
+        Me.Label5.Size = New System.Drawing.Size(82, 17)
+        Me.Label5.TabIndex = 2
+        Me.Label5.Text = "Max Count :"
+        '
+        'Label3
+        '
+        Me.Label3.AutoSize = True
+        Me.Label3.Location = New System.Drawing.Point(19, 29)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(129, 17)
+        Me.Label3.TabIndex = 0
+        Me.Label3.Text = "Current Arc Count :"
+        '
+        'btnSave
+        '
+        Me.btnSave.Location = New System.Drawing.Point(692, 526)
+        Me.btnSave.Name = "btnSave"
+        Me.btnSave.Size = New System.Drawing.Size(120, 40)
+        Me.btnSave.TabIndex = 1
+        Me.btnSave.Text = "Save"
+        Me.btnSave.UseVisualStyleBackColor = True
+        '
+        'btnCancel
+        '
+        Me.btnCancel.Location = New System.Drawing.Point(566, 526)
+        Me.btnCancel.Name = "btnCancel"
+        Me.btnCancel.Size = New System.Drawing.Size(120, 40)
+        Me.btnCancel.TabIndex = 2
+        Me.btnCancel.Text = "Cancel"
+        Me.btnCancel.UseVisualStyleBackColor = True
+        '
         'frmSetting
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
@@ -255,10 +412,13 @@ Partial Class frmSetting
         Me.TabPage3.PerformLayout()
         CType(Me.dgSplicer, System.ComponentModel.ISupportInitialize).EndInit()
         Me.TabPage4.ResumeLayout(False)
-        Me.GroupBox1.ResumeLayout(False)
-        Me.GroupBox1.PerformLayout()
         Me.GroupBox2.ResumeLayout(False)
         Me.GroupBox2.PerformLayout()
+        Me.GroupBox1.ResumeLayout(False)
+        Me.GroupBox1.PerformLayout()
+        Me.TabPage5.ResumeLayout(False)
+        Me.GroupBox3.ResumeLayout(False)
+        Me.GroupBox3.PerformLayout()
         Me.ResumeLayout(False)
 
     End Sub
@@ -280,4 +440,18 @@ Partial Class frmSetting
     Friend WithEvents GroupBox1 As System.Windows.Forms.GroupBox
     Friend WithEvents Label1 As System.Windows.Forms.Label
     Friend WithEvents txtConfPath As System.Windows.Forms.TextBox
+    Friend WithEvents TabPage5 As System.Windows.Forms.TabPage
+    Friend WithEvents GroupBox3 As System.Windows.Forms.GroupBox
+    Friend WithEvents lblArcCount As System.Windows.Forms.Label
+    Friend WithEvents btnArcReset As System.Windows.Forms.Button
+    Friend WithEvents txtArcMax As System.Windows.Forms.TextBox
+    Friend WithEvents Label5 As System.Windows.Forms.Label
+    Friend WithEvents Label3 As System.Windows.Forms.Label
+    Friend WithEvents Label7 As System.Windows.Forms.Label
+    Friend WithEvents txtMaxHour As System.Windows.Forms.TextBox
+    Friend WithEvents Label6 As System.Windows.Forms.Label
+    Friend WithEvents lblLastReset As System.Windows.Forms.Label
+    Friend WithEvents Label8 As System.Windows.Forms.Label
+    Friend WithEvents lblLastArc As System.Windows.Forms.Label
+    Friend WithEvents Label10 As System.Windows.Forms.Label
 End Class

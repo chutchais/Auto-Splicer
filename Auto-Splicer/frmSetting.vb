@@ -7,6 +7,7 @@ Public Class frmSetting
     Private dataSet As DataSet
     Private dataSetSplicer As DataSet
     Private dataSetSetting As DataSet
+    Private dataSetArc As DataSet
 
     Private vConfigurationPath As String
 
@@ -65,6 +66,7 @@ Public Class frmSetting
         'Get Path Setting
         Dim vSplicerFile As String = getConfigurationPath() & "splicer.json"
         Dim vConfigFile As String = getConfigurationPath() & "configuration.json"
+        Dim vArcFile As String = getConfigurationPath() & "arc.json"
 
         txtConfPath.Text = getConfigurationPath()
         txtLogPath.Text = getOutputPath()
@@ -72,6 +74,7 @@ Public Class frmSetting
         ''---Model---
         Dim vConfigJson As String = File.ReadAllText(vConfigFile)
         Dim vSplicerJson As String = File.ReadAllText(vSplicerFile)
+        Dim vArcJson As String = File.ReadAllText(vArcFile)
 
         dataSet = JsonConvert.DeserializeObject(Of DataSet)(vConfigJson)
         dataSetSplicer = JsonConvert.DeserializeObject(Of DataSet)(vSplicerJson)
@@ -89,6 +92,17 @@ Public Class frmSetting
         dgSplicer.DataSource = dataSetSplicer.Tables(vSplicer)
         '---------------
 
+        '-----Arc-------
+        dataSetArc = JsonConvert.DeserializeObject(Of DataSet)(vArcJson)
+        With dataSetArc.Tables("arc")
+            lblArcCount.Text = .Rows(0).Item("count")
+            txtArcMax.Text = .Rows(0).Item("maxcount")
+            txtMaxHour.Text = .Rows(0).Item("maxhour")
+            lblLastReset.Text = .Rows(0).Item("startdate")
+            lblLastArc.Text = .Rows(0).Item("lastdate")
+        End With
+        '---------------
+
     End Sub
 
     Private Sub btnSave_Click(sender As Object, e As EventArgs) Handles btnSave.Click
@@ -102,6 +116,7 @@ Public Class frmSetting
         'DataSet.Tables("configuration").TableName = txtSN.Text
         Dim vConfigFile As String = getConfigurationPath() & "configuration.json"
         Dim vSplicerFile As String = getConfigurationPath() & "splicer.json"
+        Dim vArcFile As String = getConfigurationPath() & "arc.json"
 
         Dim vJsonStr As String = JsonConvert.SerializeObject(dataSet, Formatting.Indented)
         File.WriteAllText(vConfigFile, vJsonStr)
@@ -109,7 +124,17 @@ Public Class frmSetting
         Dim vJsonSplicerStr As String = JsonConvert.SerializeObject(dataSetSplicer, Formatting.Indented)
         File.WriteAllText(vSplicerFile, vJsonSplicerStr)
 
+
+        With dataSetArc.Tables("arc")
+            .Rows(0).Item("maxcount") = txtArcMax.Text
+            .Rows(0).Item("maxhour") = txtMaxHour.Text
+        End With
+        Dim vJsonArcStr As String = JsonConvert.SerializeObject(dataSetArc, Formatting.Indented)
+        File.WriteAllText(vArcFile, vJsonArcStr)
+
+
         MsgBox("Save successfull!", MsgBoxStyle.Information, "Save configuration")
+        Me.Close()
     End Sub
 
 
@@ -159,5 +184,25 @@ Public Class frmSetting
 
     Private Sub btnCancel_Click(sender As Object, e As EventArgs) Handles btnCancel.Click
         Me.Close()
+    End Sub
+
+    Private Sub btnArcReset_Click(sender As Object, e As EventArgs) Handles btnArcReset.Click
+        With dataSetArc.Tables("arc")
+            '.Rows(0).Item("") = 0
+            .Rows(0).Item("count") = 0
+            .Rows(0).Item("maxcount") = txtArcMax.Text
+            .Rows(0).Item("maxhour") = txtMaxHour.Text
+            .Rows(0).Item("startdate") = Now
+            '.Rows(0).Item("lastdate")=""
+
+            '--update screen--
+            lblArcCount.Text = .Rows(0).Item("count")
+            txtArcMax.Text = .Rows(0).Item("maxcount")
+            txtMaxHour.Text = .Rows(0).Item("maxhour")
+            lblLastReset.Text = .Rows(0).Item("startdate")
+            lblLastArc.Text = .Rows(0).Item("lastdate")
+        End With
+
+
     End Sub
 End Class

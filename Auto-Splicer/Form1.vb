@@ -8,11 +8,14 @@ Public Class Form1
     Private dataTable As DataTable
     Private dataSet As DataSet
     Private dataSetSetting As DataSet
+    Private dataSetArc As DataSet
 
     Private vRecentSaved As String = Application.StartupPath & "\recently_saved.json"
     Public vConfPath As String = "d:\" 'Application.StartupPath & "\"
 
     Dim objFITSDLL As FITSDLL.clsDB
+
+    Private vArcCount As Integer
     ' Private objFITSDLL As New FITSDLL.clsDB
 
     'Private Sub btnConnect_Click(sender As Object, e As EventArgs) Handles btnConnect.Click
@@ -114,23 +117,45 @@ Public Class Form1
         btnLogIn.Enabled = True : btnLogOut.Enabled = False
         '-----
         vConfPath = getConfigurationPath()
-        '---Model---
-        Dim vModelJson As String = File.ReadAllText(vConfPath & "model.json")
-        Dim vModeldataSet As DataSet = JsonConvert.DeserializeObject(Of DataSet)(vModelJson)
-        cbModel.DataSource = vModeldataSet.Tables("model")
+
+        ''---Model---
+        'Dim vModelJson As String = File.ReadAllText(vConfPath & "model.json")
+        'Dim vModeldataSet As DataSet = JsonConvert.DeserializeObject(Of DataSet)(vModelJson)
+        'cbModel.DataSource = vModeldataSet.Tables("model")
+        'cbModel.ValueMember = "name"
+        'cbModel.DisplayMember = "name"
+        ''dataTable = dataSet.Tables("configuration")
+        ''-------
+
+        ''---Model---
+        'Dim vOperationJson As String = File.ReadAllText(vConfPath & "operation.json")
+        'Dim vOperationdataSet As DataSet = JsonConvert.DeserializeObject(Of DataSet)(vOperationJson)
+        'cbOperation.DataSource = vOperationdataSet.Tables("operation")
+        'cbOperation.ValueMember = "operation"
+        'cbOperation.DisplayMember = "name"
+        ''dataTable = dataSet.Tables("configuration")
+        ''-------
+        Dim vConfJson As String = File.ReadAllText(vConfPath & "configuration.json")
+        Dim vConfdataSet As DataSet = JsonConvert.DeserializeObject(Of DataSet)(vConfJson)
+
+        cbModel.DataSource = vConfdataSet.Tables("model")
         cbModel.ValueMember = "name"
         cbModel.DisplayMember = "name"
-        'dataTable = dataSet.Tables("configuration")
-        '-------
 
-        '---Model---
-        Dim vOperationJson As String = File.ReadAllText(vConfPath & "operation.json")
-        Dim vOperationdataSet As DataSet = JsonConvert.DeserializeObject(Of DataSet)(vOperationJson)
-        cbOperation.DataSource = vOperationdataSet.Tables("operation")
+        cbOperation.DataSource = vConfdataSet.Tables("operation")
         cbOperation.ValueMember = "operation"
         cbOperation.DisplayMember = "name"
-        'dataTable = dataSet.Tables("configuration")
-        '-------
+
+        '----Arc-----
+        Dim vArcJson As String = File.ReadAllText(vConfPath & "arc.json")
+        dataSetArc = JsonConvert.DeserializeObject(Of DataSet)(vArcJson)
+
+        lblArcCount.Text = dataSetArc.Tables("arc").Rows(0).Item("count")
+        lblArcSince.Text = dataSetArc.Tables("arc").Rows(0).Item("startdate")
+        lblLast.Text = dataSetArc.Tables("arc").Rows(0).Item("lastdate")
+        lblMaxArc.Text = dataSetArc.Tables("arc").Rows(0).Item("maxcount")
+        lblMaxHour.Text = dataSetArc.Tables("arc").Rows(0).Item("maxhour")
+
         LogOn(True)
 
         btnStart.Enabled = False
@@ -397,8 +422,8 @@ Public Class Form1
                 End If
             Next
             'Append Result
-            vParamList = vParamList & "|Result"
-            vDataList = vDataList & "|" & vResult
+            vParamList = vParamList & "|Result|ARC_COUNT"
+            vDataList = vDataList & "|" & vResult & "|" & "1"
 
             vHandShake = objFITSDLL.fn_Handshake(vModel, vOperation, "2.9", vSn)
 
@@ -447,14 +472,23 @@ Public Class Form1
         Dim strVal As String
         Select Case vTag
             Case "SET"
+                If Not checkArc() Then
+                    Exit Sub
+                End If
                 strVal = UsbFsm.CommandAndReceiveText("$SET", 1000)
                 btnSet.Text = "Read Value"
             Case "Read Value"
+                If Not checkArc() Then
+                    Exit Sub
+                End If
                 strVal = UsbFsm.CommandAndReceiveText("=FUNCSTAT", 1000)
                 If strVal = "NOFIN" Then
                     strVal = UsbFsm.CommandAndReceiveText("=DAT|ESTLOSS", 1000)
                     txtLossValue.Text = Split(strVal, "=")(1)
                 End If
+                '----Increase Arc Count---
+                increaseArcCount()
+                '-------------------------
                 tssMessage.Text = strVal
                 btnSet.Text = "Save"
             Case "Save"
@@ -463,11 +497,49 @@ Public Class Form1
         End Select
     End Sub
 
+    Sub increaseArcCount()
+        dataSetArc.Tables("arc").Rows(0).Item("count") = dataSetArc.Tables("arc").Rows(0).Item("count") + 1
+        dataSetArc.Tables("arc").Rows(0).Item("lastdate") = Now
+        lblArcCount.Text = dataSetArc.Tables("arc").Rows(0).Item("count")
+        lblArcSince.Text = dataSetArc.Tables("arc").Rows(0).Item("lastdate")
+
+        Dim vArcFile As String = getConfigurationPath() & "arc.json"
+        Dim vJsonArcStr As String = JsonConvert.SerializeObject(dataSetArc, Formatting.Indented)
+        File.WriteAllText(vArcFile, vJsonArcStr)
+    End Sub
+
     Private Sub DataGridView1_CellContentClick_1(sender As Object, e As DataGridViewCellEventArgs) Handles DataGridView1.CellContentClick
         btnSet.Text = "SET"
     End Sub
 
+    Private Function checkArc() As Boolean
+        Try
+            Dim vCurrentArc As Integer = dataSetArc.Tables("arc").Rows(0).Item("count")
+            Dim vMaxArc As Integer = dataSetArc.Tables("arc").Rows(0).Item("maxcount")
+            Dim vMaxHour As Integer = dataSetArc.Tables("arc").Rows(0).Item("maxhour")
+            Dim vStartDate As Date = dataSetArc.Tables("arc").Rows(0).Item("startdate")
+            Dim duration As TimeSpan = Now - vStartDate
+            '1-Check Over Arc count
+            If vCurrentArc > vMaxArc Then
+                MsgBox("Arc count is over limit,Please PM", MsgBoxStyle.Critical, "Arc count is Over")
+                Return False
+            End If
+            '2-Check Over Hour
+            If duration.TotalHours > vMaxHour Then
+                MsgBox("Arc count is over limit,Please PM", MsgBoxStyle.Critical, "Arc count is Over")
+                Return False
+            End If
+            Return True
+        Catch ex As Exception
+            Return False
+        End Try
+
+    End Function
+
     Private Sub btnStart_Click(sender As Object, e As EventArgs) Handles btnStart.Click
+        If Not checkArc() Then
+            Exit Sub
+        End If
 
         '1) do Handshake First
         Dim vModel As String = cbModel.SelectedValue.ToString
@@ -742,8 +814,10 @@ NewUnit:
     End Function
 
     Private Sub btnSetting_Click(sender As Object, e As EventArgs) Handles btnSetting.Click
-        Dim box = New frmSetting
-        box.Show()
+        Dim frmConfiguration = New frmSetting
+        frmConfiguration.ShowDialog()
+        'Refresh all Configuration
+        initialConfiguration()
     End Sub
 
   
