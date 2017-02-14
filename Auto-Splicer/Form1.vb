@@ -423,7 +423,7 @@ Public Class Form1
             Next
             'Append Result
             vParamList = vParamList & "|Result|ARC_COUNT"
-            vDataList = vDataList & "|" & vResult & "|" & "1"
+            vDataList = vDataList & "|" & vResult & "|" & lblArcCount.Text
 
             vHandShake = objFITSDLL.fn_Handshake(vModel, vOperation, "2.9", vSn)
 
