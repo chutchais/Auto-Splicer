@@ -445,8 +445,8 @@ Public Class Form1
                     'vCheckIn = objFITSDLL.fn_Log(vModel, vOperation, "6", "FBN Serial No", vSn) 'Delete
 
                     vCheckOut = objFITSDLL.fn_Log(vModel, vOperation, "1", vParamList, vDataList, "|")
-                    vCheckIn = objFITSDLL.fn_Log(vModel, vOperation, "5", "FBN Serial No", vSn) 'Checkout Delete
-                    vCheckIn = objFITSDLL.fn_Log(vModel, vOperation, "6", "FBN Serial No", vSn) 'Checkin Delete 
+                    'vCheckIn = objFITSDLL.fn_Log(vModel, vOperation, "5", "FBN Serial No", vSn) 'Checkout Delete
+                    'vCheckIn = objFITSDLL.fn_Log(vModel, vOperation, "6", "FBN Serial No", vSn) 'Checkin Delete 
 
                     'Log(Now() & "--" & vSn & "--" & vModel & "--" & vProcess & "--" & vExeStation & "--" & vLastID & "--" & vCheckOut & "--" & IIf(vResult = "Passed", "PASS", vDisposCode))
                 Case vHandShake.Contains("in-processing in " & vOperation)

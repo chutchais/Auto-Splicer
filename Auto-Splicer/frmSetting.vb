@@ -89,6 +89,9 @@ Public Class frmSetting
 
         '---Splicer-----
         Dim vSplicer As String = cbModel.SelectedValue
+        'Dim dataView As New DataView(dataSetSplicer.Tables(vSplicer))
+        'dataView.Sort = "seq"
+        '' Dim dataTable As DataTable = dataView.ToTable()
         dgSplicer.DataSource = dataSetSplicer.Tables(vSplicer)
         '---------------
 
@@ -146,6 +149,9 @@ Public Class frmSetting
     Private Sub cbModel_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cbModel.SelectedIndexChanged
         'MsgBox(cbModel.SelectedValue)
         Dim vSplicer As String = cbModel.SelectedValue
+        'Dim dataView As New DataView(dataSetSplicer.Tables(vSplicer))
+        'dataView.Sort = "seq"
+        ''Dim dataTable As DataTable = dataView.ToTable()
         Dim vDataTable As DataTable = dataSetSplicer.Tables(vSplicer)
 
         If Not vDataTable Is Nothing Then
